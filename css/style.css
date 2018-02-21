@@ -566,6 +566,8 @@ body {
       font-family: "Iosevka";
       background-color: #2c2f3c;
       overflow-x: scroll; }
+  .message.sparkline svg {
+    transform: rotateX(180deg); }
   .message.variable {
     margin: 1rem 0 0 0;
     font-family: 'Iosevka'; }

@@ -209,6 +209,12 @@ body {
     }
   }
 
+  &.sparkline {
+    svg {
+      transform: rotateX(180deg);
+    }
+  }
+
   &.variable {
     margin: 1rem 0 0 0;
     font-family: 'Iosevka';

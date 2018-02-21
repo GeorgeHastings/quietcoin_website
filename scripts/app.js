@@ -92,9 +92,29 @@ const types = {
   },
   math: {
     match: (content) =>
-      /^[^a-z]*$/i.test(content),
+      /^[^a-z]*$/i.test(content) && !types.sparkline.match(content),
     format: (content) => {
       return `<pre class='code'>${content} => ${eval(content)}</pre>`;
+    }
+  },
+  sparkline: {
+    match: (content) =>
+      content.charAt(0) === '~' && content.slice(-1) === '~',
+    format: (content) => {
+      content = content.slice(1, -1);
+      const d = ['M 0 0'];
+      const data = content.split(',');
+      const width = 400;
+      const height = 100;
+      for(var i = 0; i < data.length; i++) {
+        const y = (data[i]- Math.min(...data))/(Math.max(...data) - Math.min(...data));
+        let letter = i > 0 ? 'L' : 'M';
+        d.push(`${letter} ${i*(width/data.length)} ${y}`);
+      }
+      return `
+        <svg width="100%" height="80px" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path id="sparkLine" d="${d}" fill="transparent" stroke="cyan" stroke-width="1"/>
+        </svg>`;
     }
   },
   code: {
@@ -459,6 +479,7 @@ const loadNotes = () => {
     else {
       noteslocal.push(basics);
       newNote();
+      save();
     }
   });
 };
