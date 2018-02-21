@@ -1,0 +1,82 @@
+@import 'variables';
+
+$snuff: #e2dded;
+$sunglow: #e26c6a;
+$mulledwine: #594f6c;
+$royalblue: #3b81eb;
+
+pre {
+  color: $darkgray;
+}
+
+pre .comment {
+  color: lighten($slate, 15%);
+}
+
+pre .constant {
+  color: $sunglow;
+}
+
+pre .storage {
+  color: violet;
+}
+
+pre .string, pre .comment.docstring {
+  color: cyan;
+}
+
+pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
+  color: $darkgray;
+}
+
+pre .support.css-property {
+  color: white;
+}
+
+pre .keyword.operator {
+  color: white;
+}
+
+pre .keyword.unit {
+  color: $sunglow;
+}
+
+pre .support.tag-name {
+  color: #08907e;
+}
+
+pre .support.attribute {
+  color: #67e0ae;
+}
+
+pre .keyword, pre .selector {
+  color: cyan;
+}
+
+pre .inherited-class {
+  font-style: italic
+}
+
+pre .entity {
+  color: #67e0ae;
+}
+
+pre .support {
+  color: $darkgray;
+}
+
+pre .variable.global, pre .variable.class, pre .variable.instance {
+  color: #FF6400
+}
+
+pre .function.call {
+  color: #08907e;
+}
+
+[data-language="unknown"] {
+  color: white;
+}
+
+[data-language="c"] .function.call, .lang-c .function.call, .language-c .function.call {
+  color: $darkgray
+}

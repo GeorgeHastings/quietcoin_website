@@ -1,0 +1,1 @@
+const ENTRY=document.getElememntById("entry"),CONTENT=document.getElememntById("detailContent");

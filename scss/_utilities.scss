@@ -1,0 +1,21 @@
+.hidden {
+  position: absolute;
+  left: -99999rem;
+  transform: translate3d(0,1em,0);
+  opacity: 0;
+}
+
+.tippet {
+  position: absolute;
+  display: inline-block;
+  padding: 2rem;
+  max-width: 24rem;
+  border-radius: 3px;
+  font: inherit;
+  // font-size: 0.85rem;
+  line-height: 1.5rem;
+  z-index: 9999;
+  box-shadow: 0 10px 30px -5px rgba(0,0,20,.3);
+  background-color: white;
+  color: $black;
+}
