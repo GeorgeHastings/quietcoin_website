@@ -547,12 +547,6 @@ body {
   line-height: 150%;
   padding: 0 2rem;
   cursor: pointer; }
-  .message:before {
-    position: absolute;
-    margin-left: -2rem;
-    color: #42455a;
-    font-family: "Iosevka";
-    content: ">"; }
   .message:not(.list) + .list {
     margin-top: 1rem; }
   .message.text {
@@ -566,8 +560,10 @@ body {
       font-family: "Iosevka";
       background-color: #2c2f3c;
       overflow-x: scroll; }
-  .message.sparkline svg {
-    transform: rotateX(180deg); }
+  .message.sparkline {
+    margin-top: 1rem; }
+    .message.sparkline svg {
+      transform: rotateX(180deg); }
   .message.variable {
     margin: 1rem 0 0 0;
     font-family: 'Iosevka'; }
@@ -580,9 +576,10 @@ body {
   .message.quote {
     padding-left: 2rem;
     margin: 2rem 0 2rem 2rem;
+    max-width: calc(100% - 2rem);
     border-left: 3px solid #373A4B;
     color: #bcc6d1; }
-    .message.quote:before {
+    .message.quote .handle {
       margin-left: calc(-4rem - 2px); }
     .message.quote + .message.quote {
       margin-top: 0; }
@@ -631,6 +628,17 @@ h1:focus, h2:focus, h3:focus, h4:focus {
   font-size: 0.9rem;
   color: #95A4B3;
   background-color: #373A4B; }
+
+.handle {
+  position: absolute;
+  margin-left: -2rem;
+  margin-top: -11px;
+  padding-right: 1rem;
+  color: #42455a;
+  font-family: "Iosevka";
+  cursor: pointer; }
+  .handle:hover {
+    color: white; }
 
 .edit-message {
   margin-right: -2rem;
@@ -683,3 +691,9 @@ h1:focus, h2:focus, h3:focus, h4:focus {
     text-align: left;
     vertical-align: baseline;
     background-color: #2c2f3c; }
+
+.inject-line {
+  height: 1px;
+  width: 100%;
+  margin: 0.25rem 0 0 0;
+  background-color: #4579FF; }

@@ -177,14 +177,6 @@ body {
   padding: 0 2rem;
   cursor: pointer;
 
-  &:before {
-    position: absolute;
-    margin-left: -2rem;
-    color: lighten($slate, 5%);
-    font-family: "Iosevka";
-    content: ">";
-  }
-
   &:not(.list) + .list {
     margin-top: 1rem;
   }
@@ -210,6 +202,7 @@ body {
   }
 
   &.sparkline {
+    margin-top: 1rem;
     svg {
       transform: rotateX(180deg);
     }
@@ -234,10 +227,11 @@ body {
   &.quote {
     padding-left: 2rem;
     margin: 2rem 0 2rem 2rem;
+    max-width: calc(100% - 2rem);
     border-left: 3px solid $slate;
     color: $gray;
 
-    &:before {
+    .handle {
       margin-left: calc(-4rem - 2px);
     }
 
@@ -313,6 +307,20 @@ h1,h2,h3,h4 {
   background-color: $slate;
 }
 
+.handle {
+  position: absolute;
+  margin-left: -2rem;
+  margin-top: -11px;
+  padding-right: 1rem;
+  color: lighten($slate, 5%);
+  font-family: "Iosevka";
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+  }
+}
+
 .edit-message {
   margin-right: -2rem;
   display: none;
@@ -332,4 +340,11 @@ h1,h2,h3,h4 {
   height: 239px;
   margin-left: 2rem !important;
   @include borderanimate;
+}
+
+.inject-line {
+  height: 1px;
+  width: 100%;
+  margin: 0.25rem 0 0 0;
+  background-color: $blue;
 }

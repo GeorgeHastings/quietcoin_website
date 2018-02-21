@@ -8,6 +8,7 @@ const DOC_VARS = [];
 let noteslocal = [];
 let noteIndex = 0;
 let selectedNoteIndex;
+let injectLine;
 
 const scrollToBottom = () => {
   document.querySelector('.detail').scrollTop += 15000;
@@ -109,10 +110,10 @@ const types = {
       for(var i = 0; i < data.length; i++) {
         const y = (data[i]- Math.min(...data))/(Math.max(...data) - Math.min(...data));
         let letter = i > 0 ? 'L' : 'M';
-        d.push(`${letter} ${i*(width/data.length)} ${y}`);
+        d.push(`${letter} ${i*(width/data.length)} ${y * height}`);
       }
       return `
-        <svg width="100%" height="80px" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <svg width="100%" height="80px" viewBox="0 0 ${width} ${height + 1}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path id="sparkLine" d="${d}" fill="transparent" stroke="cyan" stroke-width="1"/>
         </svg>`;
     }
@@ -164,6 +165,7 @@ const types = {
       });
       return `
         <div data-async-id=${id} class="message url dummy-link-loader">
+        <div class="handle">></div>
           <div class="m-c">
             <a target="_blank">
               <img>
@@ -297,9 +299,9 @@ const message = async (content) => {
   }
   if(type) {
     const result = await types[type].format(content);
-    return type === 'url' ? result : `<div class="message ${type}"><div class="m-c">${result}</div><div class="edit-message">Edit</div></div>`;
+    return type === 'url' ? result : `<div class="message ${type}"><div class="handle">></div><div class="m-c">${result}</div><div class="edit-message">Edit</div></div>`;
   }
-  return `<div class="message text"><div class="m-c">${content}</div><div class="edit-message">Edit</div></div>`;
+  return `<div class="message text"><div class="handle">></div><div class="m-c">${content}</div><div class="edit-message">Edit</div></div>`;
 };
 
 const enterMessage = async () => {
@@ -321,7 +323,17 @@ const enterMessage = async () => {
       element.querySelector('.edit-message').onclick = (e) => {
         selectMessage(e);
       }
-      CONTENT.appendChild(element);
+      element.querySelector('.handle').onclick = (e) => {
+        insertInjectLine(e);
+      }
+      if(injectLine) {
+        let before = document.getElementById(injectLine);
+        CONTENT.insertBefore(element, before);
+        document.querySelector('.inject-line').remove();
+      }
+      else {
+        CONTENT.appendChild(element);
+      }
       scrollToBottom();
     }
   }
@@ -342,13 +354,21 @@ const enterMessage = async () => {
     }
     else {
       if(selectedNoteIndex === undefined) {
-        noteslocal[noteIndex].messages.push({
+        const messageData = {
           id: id,
           content: content,
           type: style
-        });
+        }
+        const injectIndex = [...document.querySelectorAll('.message')].indexOf(document.getElementById(injectLine));
+        if(injectLine) {
+          noteslocal[noteIndex].messages.splice(injectIndex - 1, 0, messageData);
+        }
+        else {
+          noteslocal[noteIndex].messages.push(messageData);
+        }
       }
       selectedNoteIndex = undefined;
+      injectLine = null;
       save();
     }
   });
@@ -392,11 +412,24 @@ const getMessageById = (id) => {
   return result;
 };
 
-const selectMessage = (e) => {
+const getMessage = (e) => {
   let el = e.target;
   if(!el.classList.contains('message')){
     while ((el = el.parentElement) && !el.classList.contains('message'));
   }
+  return el;
+};
+
+const insertInjectLine = (e) => {
+  const el = getMessage(e);
+  const hr = createElement(`<div class="inject-line"></div>`);
+  injectLine = el.getAttribute('id');
+  CONTENT.insertBefore(hr, el);
+  ENTRY.focus();
+};
+
+const selectMessage = (e) => {
+  let el = getMessage(e);
   const id = el.getAttribute('id');
   const note = getMessageById(id);
   ENTRY.value = note.content;
@@ -431,7 +464,18 @@ const renderMessages = (index) => {
       element.querySelector('.edit-message').onclick = (e) => {
         selectMessage(e);
       }
-      CONTENT.appendChild(element);
+      element.querySelector('.handle').onclick = (e) => {
+        insertInjectLine(e);
+      }
+      if(injectLine) {
+        let before = document.getElementById(injectLine);
+        CONTENT.insertBefore(element, before);
+        document.querySelector('.inject-line').remove();
+        injectLine = null;
+      }
+      else {
+        CONTENT.appendChild(element);
+      }
     });
   }
 }
@@ -522,6 +566,10 @@ ENTRY.onblur = () => {
     selectedNoteIndex = null;
     document.querySelector('.message-selected').classList.remove('message-selected');
     ENTRY.value = '';
+  }
+  if(injectLine) {
+    document.querySelector('.inject-line').remove();
+    injectLine = null;
   }
 };
 
