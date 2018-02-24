@@ -7,7 +7,7 @@ const DOC_VARS = [];
 
 let noteslocal = [];
 let noteIndex = 0;
-let selectedNoteIndex;
+let selectedNoteIndex = null;
 let injectLine;
 
 const scrollToBottom = () => {
@@ -114,7 +114,7 @@ const types = {
       }
       return `
         <svg width="100%" height="80px" viewBox="0 0 ${width} ${height + 1}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path id="sparkLine" d="${d}" fill="transparent" stroke="cyan" stroke-width="1"/>
+          <path id="sparkLine" d="${d}" fill="transparent" stroke-width="1"/>
         </svg>`;
     }
   },
@@ -165,7 +165,7 @@ const types = {
       });
       return `
         <div data-async-id=${id} class="message url dummy-link-loader">
-        <div class="handle">></div>
+        <div class="handle">▶</div>
           <div class="m-c">
             <a target="_blank">
               <img>
@@ -299,9 +299,9 @@ const message = async (content) => {
   }
   if(type) {
     const result = await types[type].format(content);
-    return type === 'url' ? result : `<div class="message ${type}"><div class="handle">></div><div class="m-c">${result}</div><div class="edit-message">Edit</div></div>`;
+    return type === 'url' ? result : `<div class="message ${type}"><div class="handle">▶</div><div class="m-c">${result}</div><div class="edit-message">Edit</div></div>`;
   }
-  return `<div class="message text"><div class="handle">></div><div class="m-c">${content}</div><div class="edit-message">Edit</div></div>`;
+  return `<div class="message text"><div class="handle">▶</div><div class="m-c">${content}</div><div class="edit-message">Edit</div></div>`;
 };
 
 const enterMessage = async () => {
@@ -311,7 +311,7 @@ const enterMessage = async () => {
   let result = await message(content);
   if(content.length > 0) {
     let element = createElement(result);
-    if(selectedNoteIndex !== undefined) {
+    if(selectedNoteIndex !== null) {
       const note = noteslocal[noteIndex].messages[selectedNoteIndex];
       let edited = CONTENT.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`);
       note.content = content;
@@ -341,7 +341,7 @@ const enterMessage = async () => {
   localforage.getItem('notes').then(function(notes) {
     if(!notes) {
       const note = {
-        exerpt: CONTENT.querySelector('.message:first-child').innerText,
+        exerpt: CONTENT.querySelector('.message:first-child .m-c').innerText,
         messages: [{
           id: id,
           content: content,
@@ -353,7 +353,7 @@ const enterMessage = async () => {
       renderNotes([note]);
     }
     else {
-      if(selectedNoteIndex === undefined) {
+      if(selectedNoteIndex === null) {
         const messageData = {
           id: id,
           content: content,
@@ -367,7 +367,7 @@ const enterMessage = async () => {
           noteslocal[noteIndex].messages.push(messageData);
         }
       }
-      selectedNoteIndex = undefined;
+      selectedNoteIndex = null;
       injectLine = null;
       save();
     }
@@ -497,7 +497,7 @@ const deleteNote = (index) => {
 const renderNotes = (notes) => {
   LISTING.innerHTML = '';
   notes.forEach((note, index) => {
-    const listing = `<li onclick="showNoteDetail(${index})"><span>${note.exerpt}</span><div class="delete" onclick="deleteNote(${index})">✕</div></li>`;
+    const listing = `<li onclick="showNoteDetail(${index})"><span>${note.exerpt.slice(1)}</span><div class="delete" onclick="deleteNote(${index})">✕</div></li>`;
     LISTING.innerHTML += listing;
   });
   showNoteDetail(0);
@@ -529,57 +529,69 @@ const loadNotes = () => {
 };
 
 const deleteMessage = () => {
-  console.log('this is happening');
   CONTENT.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`).remove();
   noteslocal[noteIndex].messages.splice(selectedNoteIndex, 1);
   save();
 };
 
-ENTRY.onkeydown = (e) => {
-  const hittingEnter = e.keyCode === 13;
-  if(hittingEnter) {
-    e.preventDefault();
-    if(selectedNoteIndex && ENTRY.value.length < 1) {
-      deleteMessage();
+const bindEvents = () => {
+
+  ENTRY.onkeydown = (e) => {
+    const hittingEnter = e.keyCode === 13;
+    if(hittingEnter) {
+      e.preventDefault();
+      if(selectedNoteIndex && ENTRY.value.length < 1) {
+        deleteMessage();
+        ENTRY.setAttribute('rows', 1);
+      }
     }
-  }
+  };
+
+  ENTRY.onkeyup = (e) => {
+    const hittingEnter = e.keyCode === 13;
+    const baseScrollHeight = 54;
+    const scrollHeight = ENTRY.scrollHeight;
+    const canSendMessage = ENTRY.value.length > 1;
+    const rows = ((ENTRY.scrollHeight - baseScrollHeight)/22) + 1;
+    if(ENTRY.value.length > 1 && rows !== ENTRY.getAttribute('rows')) {
+      ENTRY.setAttribute('rows', rows);
+    }
+    if(hittingEnter && canSendMessage) {
+      enterMessage();
+      ENTRY.value = '';
+      ENTRY.setAttribute('rows', 1);
+    }
+  };
+
+  ENTRY.onblur = () => {
+    if(selectedNoteIndex && document.querySelector('.message-selected')) {
+      selectedNoteIndex = null;
+      document.querySelector('.message-selected').classList.remove('message-selected');
+      ENTRY.value = '';
+    }
+    if(injectLine) {
+      document.querySelector('.inject-line').remove();
+      injectLine = null;
+    }
+  };
+
+  document.body.onkeyup = (e) => {
+    if(e.key === 'Backspace') {
+      let selected = document.querySelectorAll('.message--selected');
+      selected.forEach(select => {
+        select.remove();
+      });
+    }
+  };
+
+  document.getElementById('themeLight').onclick = () => {
+    document.body.classList = 'light-theme';
+  };
+
+  document.getElementById('themeDark').onclick = () => {
+    document.body.classList = 'dark-theme';
+  };
 };
 
-ENTRY.onkeyup = (e) => {
-  const hittingEnter = e.keyCode === 13;
-  const baseScrollHeight = 54;
-  const scrollHeight = ENTRY.scrollHeight;
-  const canSendMessage = ENTRY.value.length > 1;
-  const rows = ((ENTRY.scrollHeight - baseScrollHeight)/22) + 1;
-  if(ENTRY.value.length > 1 && rows !== ENTRY.getAttribute('rows')) {
-    ENTRY.setAttribute('rows', rows);
-  }
-  if(hittingEnter && canSendMessage) {
-    enterMessage();
-    ENTRY.value = '';
-    ENTRY.setAttribute('rows', 1);
-  }
-};
-
-ENTRY.onblur = () => {
-  if(selectedNoteIndex) {
-    selectedNoteIndex = null;
-    document.querySelector('.message-selected').classList.remove('message-selected');
-    ENTRY.value = '';
-  }
-  if(injectLine) {
-    document.querySelector('.inject-line').remove();
-    injectLine = null;
-  }
-};
-
-document.body.onkeyup = (e) => {
-  if(e.key === 'Backspace') {
-    let selected = document.querySelectorAll('.message--selected');
-    selected.forEach(select => {
-      select.remove();
-    });
-  }
-};
-
+bindEvents();
 loadNotes();

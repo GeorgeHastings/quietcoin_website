@@ -8,6 +8,10 @@
 
 * {box-sizing: border-box;}
 
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+$mono: 'Roboto Mono';
+
 html,
 body {
   height: 100%;
@@ -15,15 +19,41 @@ body {
 }
 
 body {
-  font-family: "GT America", "Arial";
+  font-family: "Arial";
   -webkit-font-smoothing: antialiased;
   -webkit-text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-size: 16px;
   line-height: 140%;
-  color: #fff;
-  background-color: $black;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+.dark-theme {
+  --bg-color: $black;
+  --border-color: $slate;
+  --text-color: white;
+  --subtle-text-color: $darkgray;
+  --backdrop-color: lighten($slate, 5%);
+  --select-color: lighten($black, 5%);
+  --hover-color: lighten($black, 2%);
+  --radio-color: $darkgray;
+  --var-color: cyan;
+  --text-math: $gray;
+}
+
+.light-theme {
+  --bg-color: white;
+  --border-color: $lightgray;
+  --text-color: $black;
+  --subtle-text-color: $darkgray;
+  --backdrop-color: $gray;
+  --select-color: lighten($lightgray, 1.5%);
+  --hover-color: lighten($lightgray, 3%);
+  --radio-color: $gray;
+  --var-color: $blue;
+  --text-math: $blue;
 }
 
 .wrapper,
@@ -35,7 +65,7 @@ body {
 
 .listing-header {
   height: 60px;
-  border-bottom: 1px solid $slate;
+  border-bottom: 1px solid var(--border-color);
   padding: 0 1rem;
   align-items: center;
   @include flex-row;
@@ -46,7 +76,7 @@ body {
 
   .button:hover {
     svg path {
-      fill: white;
+      fill: var(--text-color);
     }
   }
 
@@ -56,8 +86,10 @@ body {
 }
 
 .logo {
-  font-family: "Iosevka";
-  font-weight: bold;
+  font-family: 'Eksell Display Web';
+  font-weight: normal;
+  font-size: 24px;
+  margin: 0;
 }
 
 .wrapper {
@@ -66,44 +98,45 @@ body {
 }
 
 .listing {
-  width: 300px;
-  border-right: 1px solid $slate;
+  width: 250px;
+  border-right: 1px solid var(--border-color);
 
   ul {
 
     li {
       padding: 1rem;
-      border-bottom: 1px solid $slate;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
       @include flex-row;
 
       .delete {
-        color: $slate;
+        color: var(--backdrop-color);
         cursor: pointer;
 
         &:hover {
-          color: white;
+          color: var(--text-color);
         }
       }
     }
 
     li span {
       margin-right: 1rem;
-      color: $darkgray;
+      color: var(--subtle-text-color);
       @include truncate;
     }
 
     li.selected {
-      background-color: $slate;
+      background-color: var(--border-color);
     }
 
     li.selected span {
-      color: white;
+      color: var(--text-color);
     }
   }
 }
 
 .detail {
-  width: calc(100% - 550px);
+  width: calc(100% - 500px);
   height: calc(100% - 100px);
   overflow-y: scroll;
 }
@@ -129,15 +162,16 @@ body {
   width: calc(100% - 4rem - 550px);
   padding: 1rem;
   margin: 0rem 2rem 2rem 2rem;
-  color: white;
+  color: var(--text-color);
   background-color: transparent;
   border: none;
   font: inherit;
   resize: none;
   border-radius: 2px;
-  background-color: $black;
-  box-shadow: inset 0 0 0 2px $slate;
-  backface-visibility: visible;
+  background-color: var(--bg-color);
+  box-shadow: inset 0 0 0 2px var(--border-color);
+  backface-visibility: hidden;
+  overflow-y: scroll;
 
   &:before {
     content: "";
@@ -149,7 +183,7 @@ body {
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px lighten($slate, 5%);
+    box-shadow: inset 0 0 0 2px var(--select-color);
   }
 
   &.loading {
@@ -160,9 +194,9 @@ body {
 
 .rail {
   min-width: 250px;
-  border-left: 1px solid $slate;
+  border-left: 1px solid var(--border-color);
   padding: 2rem;
-  color: $darkgray;
+  color: var(--subtle-text-color);
 
   li {
     line-height: 2rem;
@@ -186,7 +220,7 @@ body {
   }
 
   &.math pre {
-    color: $green;
+    color: var(--text-math);
   }
 
   &.code,
@@ -195,32 +229,42 @@ body {
 
     .m-c {
       padding: 1rem;
-      font-family: "Iosevka";
-      background-color: lighten($black, 5%);
+      font-family: $mono;
+      background-color: var(--select-color);
       overflow-x: scroll;
+      color: var(--subtle-text-color);
     }
   }
 
   &.sparkline {
     margin-top: 1rem;
+
+    .m-c {
+      width: 100%;
+    }
+
     svg {
       transform: rotateX(180deg);
+
+      path {
+        stroke: var(--var-color);
+      }
     }
   }
 
   &.variable {
     margin: 1rem 0 0 0;
-    font-family: 'Iosevka';
+    font-family: $mono;
 
     & + & {
       margin: 0;
     }
 
     .var-name {
-      color: cyan;
+      color: var(--var-color);
     }
     .var-val {
-      color: white;
+      color: var(--text-color);
     }
   }
 
@@ -228,8 +272,8 @@ body {
     padding-left: 2rem;
     margin: 2rem 0 2rem 2rem;
     max-width: calc(100% - 2rem);
-    border-left: 3px solid $slate;
-    color: $gray;
+    border-left: 3px solid var(--border-color);
+    color: var(--subtle-text-color);
 
     .handle {
       margin-left: calc(-4rem - 2px);
@@ -247,7 +291,7 @@ body {
       vertical-align: bottom;
       font-size: 1.5rem;
       margin-right: 1rem;
-      color: $darkgray;
+      color: var(--subtle-text-color);
     }
 
     & + .message:not(.list)  {
@@ -260,7 +304,7 @@ body {
 
     .m-c {
       display: inline-table;
-      background-color: lighten($black, 5%);
+      background-color: var(--select-color);
 
       p {
         padding: 0 1rem 1rem 1rem;
@@ -269,7 +313,7 @@ body {
       }
 
       a {
-        color: $darkgray;
+        color: var(--subtle-text-color);
         text-decoration: none;
         display: block;
       }
@@ -277,14 +321,14 @@ body {
   }
 
   &:hover {
-    background-color: lighten($black, 2%);
+    background-color: var(--hover-color);
     .edit-message {
       display: inline-block;
     }
   }
 
   &.message-selected {
-    background-color: lighten($black, 5%);
+    background-color: var(--select-color);
   }
 }
 
@@ -300,11 +344,12 @@ h1,h2,h3,h4 {
 
 .inline-code {
   display: inline;
-  font-family: "Iosevka";
+  font-family: $mono;
   padding: 0.1rem 0.4rem;
   font-size: 0.9rem;
-  color: $darkgray;
-  background-color: $slate;
+  color: var(--text-math);
+  background-color: var(--border-color);
+  border-radius: 2px;
 }
 
 .handle {
@@ -312,12 +357,13 @@ h1,h2,h3,h4 {
   margin-left: -2rem;
   margin-top: -11px;
   padding-right: 1rem;
-  color: lighten($slate, 5%);
-  font-family: "Iosevka";
+  color: var(--backdrop-color);
+  font-family: $mono;
+  font-size: 0.65rem;
   cursor: pointer;
 
   &:hover {
-    color: white;
+    color: var(--text-color);
   }
 }
 
@@ -326,12 +372,13 @@ h1,h2,h3,h4 {
   display: none;
   font-size: 0.85rem;
   padding-left: 1rem;
-  color: lighten($slate, 5%);
-  background-color: $black;
+  color: --backdrop-color;
+  background-color: var(--bg-color);
+  font-family: 'Arial';
   cursor: pointer;
 
   &:hover {
-    color: white;
+    color: var(--text-color);
   }
 }
 
@@ -345,6 +392,10 @@ h1,h2,h3,h4 {
 .inject-line {
   height: 1px;
   width: 100%;
-  margin: 0.25rem 0 0 0;
+  margin-left: 10px;
   background-color: $blue;
+
+  & + > * {
+    margin-top: 0 ;
+  }
 }

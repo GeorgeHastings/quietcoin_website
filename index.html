@@ -2,17 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Tanto</title>
+    <title>TBD</title>
     <link rel="stylesheet" href="css/style.css" media="screen">
     <link rel="stylesheet" href="css/highlighter.css"></link>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	  <meta name="apple-mobile-web-app-capable" content="yes" />
   </head>
-  <body>
+  <body class="dark-theme">
     <div class="wrapper">
       <div class="listing">
         <div class="listing-header">
-          <h5 class="logo">TANT0</h5>
+          <h4 class="logo">Catalog</h4>
           <div class="button" onclick="newNote()">
             <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M19.167 10.833h-8.334v8.334a.834.834 0 0 1-1.666 0v-8.334H.833a.834.834 0 0 1 0-1.666h8.334V.833a.834.834 0 0 1 1.666 0v8.334h8.334a.834.834 0 0 1 0 1.666z" fill="#95A4B3" fill-rule="evenodd"/></svg>
           </div>
@@ -24,6 +24,15 @@
         <textarea rows="1" id="entry" class="detail-content-entry" placeholder="Write here"></textarea>
       </div>
       <div id="rail" class="rail">
+        <div class="radio-group">
+          <div class="radio-button">
+              <input id="themeLight" type="radio" name="theme">
+              <label for="themeLight">Light</label>
+            </div> <div class="radio-button">
+              <input id="themeDark" type="radio" name="theme" checked>
+              <label for="themeDark">Dark</label>
+            </div>
+        </div>
         <h5>Formats</h5>
         <ul>
           <li># h1</li>

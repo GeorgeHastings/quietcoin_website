@@ -8,7 +8,7 @@ const basics = {
     },
     {
       "id": "t4odx4yxpc00",
-      "content": "Tanto is a minimal markdown note app with a few extra features. ",
+      "content": "TBD is a minimal markdown note app with a few extra features. ",
       "type": "none"
     },
     {
@@ -33,7 +33,7 @@ const basics = {
     },
     {
       "id": "ya4m55zvsg00",
-      "content": "Annote has a limited set of inline style such as `code`, *bold*, and _italic_",
+      "content": "TBD has a limited set of inline style such as `code`, *bold*, and _italic_",
       "type": "none"
     },
     {
