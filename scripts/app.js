@@ -91,6 +91,17 @@ const types = {
       return `<pre class="variable code"><span class="var-name">${content[0]}</span>:<span class="var-val">${val}</span></pre>`;
     }
   },
+  checkbox: {
+    match: (content) =>
+      content.substr(0, 2) === '[]',
+    format: (content) => {
+      const id = randomString(4);
+      content = content.slice(2);
+      return `
+        <input id="${id}" type="checkbox" />
+        <label for="${id}">${content}</label>`;
+    }
+  },
   math: {
     match: (content) =>
       /^[^a-z]*$/i.test(content) && !types.sparkline.match(content),
@@ -531,6 +542,7 @@ const loadNotes = () => {
 const deleteMessage = () => {
   CONTENT.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`).remove();
   noteslocal[noteIndex].messages.splice(selectedNoteIndex, 1);
+  selectedNoteIndex = null;
   save();
 };
 
@@ -560,6 +572,12 @@ const bindEvents = () => {
       enterMessage();
       ENTRY.value = '';
       ENTRY.setAttribute('rows', 1);
+    }
+    if(ENTRY.value.charAt(ENTRY.value.length - 1) === '$') {
+      const varResults = DOC_VARS.map(vbl => {
+        return vbl.name;
+      });
+      console.log(varResults);
     }
   };
 

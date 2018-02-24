@@ -196,10 +196,11 @@ body {
   min-width: 250px;
   border-left: 1px solid var(--border-color);
   padding: 2rem;
+  font-size: 0.85rem;
   color: var(--subtle-text-color);
 
   li {
-    line-height: 2rem;
+    line-height: 1.85rem;
   }
 }
 
@@ -217,6 +218,10 @@ body {
 
   &.text {
     margin-top: 1rem;
+
+    .m-c {
+      white-space: pre-line;
+    }
   }
 
   &.math pre {
@@ -266,6 +271,10 @@ body {
     .var-val {
       color: var(--text-color);
     }
+  }
+
+  &.checkbox {
+    margin-top: 1rem;
   }
 
   &.quote {
@@ -371,7 +380,8 @@ h1,h2,h3,h4 {
   margin-right: -2rem;
   display: none;
   font-size: 0.85rem;
-  padding-left: 1rem;
+  line-height: 0.7rem;
+  padding-left: 0.5rem;
   color: --backdrop-color;
   background-color: var(--bg-color);
   font-family: 'Arial';

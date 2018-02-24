@@ -194,10 +194,7 @@ select,
 label {
   display: inline-block;
   font-weight: 300;
-  line-height: 140%;
-  margin-bottom: 1rem; }
-  input + label {
-    margin-top: 2rem; }
+  line-height: 140%; }
 
 hr {
   margin: 2rem 0;
@@ -275,7 +272,6 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 500; }
 
 input[type=checkbox] + label {
-  margin-top: 1rem;
   display: block; }
 
 input[type=checkbox] {
@@ -283,11 +279,11 @@ input[type=checkbox] {
 
 input[type=checkbox] + label:before {
   display: inline-block;
-  width: 1.33rem;
-  height: 1.33rem;
+  width: 1rem;
+  height: 1rem;
   margin-right: 1rem;
   text-align: center;
-  line-height: 1.33rem;
+  line-height: 1rem;
   border-radius: 2px;
   border: 1px solid #373A4B;
   cursor: pointer; }
@@ -297,9 +293,9 @@ input[type=checkbox] + label:before {
 
 input[type=checkbox]:checked + label:before {
   content: "✔";
-  background-color: #4579FF;
-  color: white;
-  border: 1px solid #4579FF; }
+  background-color: var(--var-color);
+  color: var(--bg-color);
+  border: 1px solid var(--var-color); }
 
 .range-slider {
   display: flex; }
@@ -567,9 +563,10 @@ body {
   min-width: 250px;
   border-left: 1px solid var(--border-color);
   padding: 2rem;
+  font-size: 0.85rem;
   color: var(--subtle-text-color); }
   .rail li {
-    line-height: 2rem; }
+    line-height: 1.85rem; }
 
 .message {
   display: flex;
@@ -582,6 +579,8 @@ body {
     margin-top: 1rem; }
   .message.text {
     margin-top: 1rem; }
+    .message.text .m-c {
+      white-space: pre-line; }
   .message.math pre {
     color: var(--text-math); }
   .message.code, .message.math {
@@ -609,6 +608,8 @@ body {
       color: var(--var-color); }
     .message.variable .var-val {
       color: var(--text-color); }
+  .message.checkbox {
+    margin-top: 1rem; }
   .message.quote {
     padding-left: 2rem;
     margin: 2rem 0 2rem 2rem;
@@ -682,7 +683,8 @@ h1:focus, h2:focus, h3:focus, h4:focus {
   margin-right: -2rem;
   display: none;
   font-size: 0.85rem;
-  padding-left: 1rem;
+  line-height: 0.7rem;
+  padding-left: 0.5rem;
   color: --backdrop-color;
   background-color: var(--bg-color);
   font-family: 'Arial';
