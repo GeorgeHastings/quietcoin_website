@@ -11,7 +11,7 @@
      height: calc(100% + 2px);
      z-index: 0;
      animation: borders 0.5s linear infinite;
-     background: radial-gradient(var(--text-math) 33%, transparent, transparent);
+     background: radial-gradient(var(--var-color) 33%, transparent, transparent);
 
      @keyframes borders {
        0% {

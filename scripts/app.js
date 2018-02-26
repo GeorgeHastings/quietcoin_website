@@ -9,6 +9,9 @@ let noteslocal = [];
 let noteIndex = 0;
 let selectedNoteIndex = null;
 let injectLine;
+let dragging = false;
+let dragStartX;
+let dragStartY;
 
 const scrollToBottom = () => {
   document.querySelector('.detail').scrollTop += 15000;
@@ -93,12 +96,13 @@ const types = {
   },
   checkbox: {
     match: (content) =>
-      content.substr(0, 2) === '[]',
+      content.substr(0, 3) === '[ ]' || content.substr(0, 3) === '[x]',
     format: (content) => {
       const id = randomString(4);
-      content = content.slice(2);
+      const checked = content.charAt(1) === 'x' ? 'checked' : '';
+      content = content.slice(3);
       return `
-        <input id="${id}" type="checkbox" />
+        <input id="${id}" type="checkbox" ${checked}/>
         <label for="${id}">${content}</label>`;
     }
   },
@@ -106,7 +110,7 @@ const types = {
     match: (content) =>
       /^[^a-z]*$/i.test(content) && !types.sparkline.match(content),
     format: (content) => {
-      return `<pre class='code'>${content} => ${eval(content)}</pre>`;
+      return `<pre class='code'><span class="comment">${content}</span> <br>${eval(content)}</pre>`;
     }
   },
   sparkline: {
@@ -319,35 +323,7 @@ const enterMessage = async () => {
   const content = ENTRY.value;
   const style = getType(content) || 'none';
   const id = randomString(12);
-  let result = await message(content);
-  if(content.length > 0) {
-    let element = createElement(result);
-    if(selectedNoteIndex !== null) {
-      const note = noteslocal[noteIndex].messages[selectedNoteIndex];
-      let edited = CONTENT.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`);
-      note.content = content;
-      note.type = style;
-      renderMessages(noteIndex);
-    }
-    else {
-      element.querySelector('.message').setAttribute('id', id);
-      element.querySelector('.edit-message').onclick = (e) => {
-        selectMessage(e);
-      }
-      element.querySelector('.handle').onclick = (e) => {
-        insertInjectLine(e);
-      }
-      if(injectLine) {
-        let before = document.getElementById(injectLine);
-        CONTENT.insertBefore(element, before);
-        document.querySelector('.inject-line').remove();
-      }
-      else {
-        CONTENT.appendChild(element);
-      }
-      scrollToBottom();
-    }
-  }
+  renderMessage(content, id);
 
   localforage.getItem('notes').then(function(notes) {
     if(!notes) {
@@ -436,6 +412,7 @@ const insertInjectLine = (e) => {
   const hr = createElement(`<div class="inject-line"></div>`);
   injectLine = el.getAttribute('id');
   CONTENT.insertBefore(hr, el);
+  // el.classList.add('insert-above');
   ENTRY.focus();
 };
 
@@ -456,37 +433,80 @@ const selectMessage = (e) => {
 };
 
 /* jshint ignore:start */
-
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
 }
 
+const bindMessageEvents = (element) => {
+  const checkbox = element.querySelector('input[type="checkbox"]');
+  const handle = element.querySelector('.handle');
+
+  element.querySelector('.edit-message').onclick = selectMessage;
+  handle.onclick = insertInjectLine;
+  if(checkbox) {
+    checkbox.onchange = (e) => {
+      const val = e.target.checked;
+      const el = getMessage(e);
+      const message = getMessageById(el.getAttribute('id'));
+      const index = noteslocal[noteIndex].messages.indexOf(message);
+      const content = noteslocal[noteIndex].messages[index].content;
+      const result = val ? content.replace('[ ]', '[x]') : content.replace('[x] ', '[ ]');
+      noteslocal[noteIndex].messages[index].content = result;
+      save();
+    }
+  }
+
+  handle.onmousedown = (e) => {
+    dragStartX = e.pageX;
+    dragStartY = e.pageY;
+    handle.addEventListener('mousemove', reorder);
+  }
+  handle.onmouseup = (e) => {
+    handle.removeEventListener('mousemove', reorder);
+    getMessage(e).setAttribute('style', 'transform: translate3d(0,0,0)');
+  }
+};
+
+const reorder = (e) => {
+  const x = e.pageX - dragStartX;
+  const y = e.pageY - dragStartY;
+  getMessage(e).setAttribute('style', `transform: translate3d(${x}px,${y}px,0); opacity: 0.5`)
+}
+
+const renderMessage = async (msg, id) => {
+  const editing = selectedNoteIndex >= 0 && document.querySelector('.message-selected');
+  console.log(editing)
+  let result = await message(msg);
+  let element = createElement(result);
+  element.querySelector('.message').setAttribute('id', id);
+  bindMessageEvents(element);
+  if(editing) {
+    const sibling = document.querySelector(`.message:nth-child(${selectedNoteIndex + 2})`);
+    document.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`).remove();
+    CONTENT.insertBefore(element, sibling);
+  }
+  else if(injectLine) {
+    let before = document.getElementById(injectLine);
+    CONTENT.insertBefore(element, before);
+    document.querySelector('.inject-line').remove();
+  }
+  else {
+    CONTENT.appendChild(element);
+  }
+}
+
 const renderMessages = (index) => {
   const messages = noteslocal[index].messages;
-  const results = document.createDocumentFragment();
   CONTENT.innerHTML = '';
   if(messages.length > 0) {
     asyncForEach(noteslocal[index].messages, async (note) => {
       let result = await message(note.content);
       let element = createElement(result);
       element.querySelector('.message').setAttribute('id', note.id);
-      element.querySelector('.edit-message').onclick = (e) => {
-        selectMessage(e);
-      }
-      element.querySelector('.handle').onclick = (e) => {
-        insertInjectLine(e);
-      }
-      if(injectLine) {
-        let before = document.getElementById(injectLine);
-        CONTENT.insertBefore(element, before);
-        document.querySelector('.inject-line').remove();
-        injectLine = null;
-      }
-      else {
-        CONTENT.appendChild(element);
-      }
+      bindMessageEvents(element);
+      CONTENT.appendChild(element);
     });
   }
 }
@@ -546,7 +566,7 @@ const deleteMessage = () => {
   save();
 };
 
-const bindEvents = () => {
+const bindUIEvents = () => {
 
   ENTRY.onkeydown = (e) => {
     const hittingEnter = e.keyCode === 13;
@@ -593,6 +613,8 @@ const bindEvents = () => {
     }
   };
 
+
+
   document.body.onkeyup = (e) => {
     if(e.key === 'Backspace') {
       let selected = document.querySelectorAll('.message--selected');
@@ -611,5 +633,5 @@ const bindEvents = () => {
   };
 };
 
-bindEvents();
 loadNotes();
+bindUIEvents();

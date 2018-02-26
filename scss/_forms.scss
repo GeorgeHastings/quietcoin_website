@@ -223,7 +223,8 @@ input[type=checkbox] + label:before {
   text-align: center;
   line-height: 1rem;
   border-radius: 2px;
-  border: 1px solid $field-border-color;
+  border: 1px solid var(--backdrop-color);
+  background: var(--select-color);
   cursor: pointer;
 }
 

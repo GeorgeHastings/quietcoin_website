@@ -59,8 +59,7 @@ table {
 h1, h2, h3, h4, h5 {
   font-weight: 700;
   margin: 1.25em 0 0.5em 0;
-  line-height: 150%;
-  font-family: 'relative'; }
+  line-height: 150%; }
 
 h1 {
   font-size: 2.441rem; }
@@ -285,7 +284,8 @@ input[type=checkbox] + label:before {
   text-align: center;
   line-height: 1rem;
   border-radius: 2px;
-  border: 1px solid #373A4B;
+  border: 1px solid var(--backdrop-color);
+  background: var(--select-color);
   cursor: pointer; }
 
 input[type=checkbox] + label:before {
@@ -424,7 +424,7 @@ body {
   overflow: hidden; }
 
 body {
-  font-family: "Arial";
+  font-family: "Neue Haas Grotesk Text Pro";
   -webkit-font-smoothing: antialiased;
   -webkit-text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
@@ -444,7 +444,7 @@ body {
   --hover-color: #262833;
   --radio-color: #95A4B3;
   --var-color: cyan;
-  --text-math: #bcc6d1; }
+  --text-math: cyan; }
 
 .light-theme {
   --bg-color: white;
@@ -533,7 +533,7 @@ body {
   z-index: 9999;
   -webkit-appearance: none;
   appearance: none;
-  width: calc(100% - 4rem - 550px);
+  width: calc(100% - 4rem - 500px);
   padding: 1rem;
   margin: 0rem 2rem 2rem 2rem;
   color: var(--text-color);
@@ -586,6 +586,7 @@ body {
   .message.code, .message.math {
     margin: 1rem 0 0 0; }
     .message.code .m-c, .message.math .m-c {
+      width: 100%;
       padding: 1rem;
       font-family: "Roboto Mono";
       background-color: var(--select-color);
@@ -646,6 +647,8 @@ body {
         display: block; }
   .message:hover {
     background-color: var(--hover-color); }
+    .message:hover .handle {
+      display: inline-block; }
     .message:hover .edit-message {
       display: inline-block; }
   .message.message-selected {
@@ -668,6 +671,7 @@ h1:focus, h2:focus, h3:focus, h4:focus {
   border-radius: 2px; }
 
 .handle {
+  display: none;
   position: absolute;
   margin-left: -2rem;
   margin-top: -11px;
@@ -675,7 +679,8 @@ h1:focus, h2:focus, h3:focus, h4:focus {
   color: var(--backdrop-color);
   font-family: "Roboto Mono";
   font-size: 0.65rem;
-  cursor: pointer; }
+  cursor: pointer;
+  user-select: none; }
   .handle:hover {
     color: var(--text-color); }
 
@@ -707,7 +712,7 @@ h1:focus, h2:focus, h3:focus, h4:focus {
     height: calc(100% + 2px);
     z-index: 0;
     animation: borders 0.5s linear infinite;
-    background: radial-gradient(var(--text-math) 33%, transparent, transparent); }
+    background: radial-gradient(var(--var-color) 33%, transparent, transparent); }
 
 @keyframes borders {
   0% {
@@ -733,10 +738,20 @@ h1:focus, h2:focus, h3:focus, h4:focus {
     vertical-align: baseline;
     background-color: var(--select-color); }
 
+.insert-above {
+  box-shadow: 0 -2px 0 var(--text-math); }
+
 .inject-line {
-  height: 1px;
+  height: 2px;
   width: 100%;
-  margin-left: 10px;
-  background-color: #4579FF; }
+  background-image: linear-gradient(to right, transparent, var(--text-math), transparent);
+  background-size: 200%;
+  animation: borders 0.5s linear infinite -0.75s; }
   .inject-line + > * {
     margin-top: 0; }
+
+@keyframes borders {
+  0% {
+    background-position: -100% 50%; }
+  100% {
+    background-position: 100% 50%; } }

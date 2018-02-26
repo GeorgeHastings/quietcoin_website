@@ -19,7 +19,7 @@ body {
 }
 
 body {
-  font-family: "Arial";
+  font-family: "Neue Haas Grotesk Text Pro";
   -webkit-font-smoothing: antialiased;
   -webkit-text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
@@ -40,7 +40,7 @@ body {
   --hover-color: lighten($black, 2%);
   --radio-color: $darkgray;
   --var-color: cyan;
-  --text-math: $gray;
+  --text-math: cyan;
 }
 
 .light-theme {
@@ -159,7 +159,7 @@ body {
   z-index: 9999;
   -webkit-appearance: none;
   appearance: none;
-  width: calc(100% - 4rem - 550px);
+  width: calc(100% - 4rem - 500px);
   padding: 1rem;
   margin: 0rem 2rem 2rem 2rem;
   color: var(--text-color);
@@ -233,6 +233,7 @@ body {
     margin: 1rem 0 0 0;
 
     .m-c {
+      width: 100%;
       padding: 1rem;
       font-family: $mono;
       background-color: var(--select-color);
@@ -331,6 +332,11 @@ body {
 
   &:hover {
     background-color: var(--hover-color);
+
+    .handle {
+      display: inline-block;
+    }
+
     .edit-message {
       display: inline-block;
     }
@@ -362,6 +368,7 @@ h1,h2,h3,h4 {
 }
 
 .handle {
+  display: none;
   position: absolute;
   margin-left: -2rem;
   margin-top: -11px;
@@ -370,6 +377,7 @@ h1,h2,h3,h4 {
   font-family: $mono;
   font-size: 0.65rem;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     color: var(--text-color);
@@ -399,13 +407,28 @@ h1,h2,h3,h4 {
   @include borderanimate;
 }
 
+.insert-above {
+  // border-top: 1px solid var(--text-math);
+  box-shadow: 0 -2px 0 var(--text-math);
+}
+
 .inject-line {
-  height: 1px;
+  height: 2px;
   width: 100%;
-  margin-left: 10px;
-  background-color: $blue;
+  background-image: linear-gradient(to right, transparent, var(--text-math), transparent);
+  background-size: 200%;
+  animation: borders 0.5s linear infinite -0.75s;
 
   & + > * {
     margin-top: 0 ;
+  }
+
+  @keyframes borders {
+    0% {
+      background-position: -100% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
   }
 }
