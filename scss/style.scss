@@ -165,7 +165,8 @@ body {
   color: var(--text-color);
   background-color: transparent;
   border: none;
-  font: inherit;
+  font-size: inherit;
+  font-family: $mono;
   resize: none;
   border-radius: 2px;
   background-color: var(--bg-color);
@@ -260,11 +261,15 @@ body {
 
   &.variable {
     margin: 1rem 0 0 0;
-    font-family: $mono;
 
     & + & {
       margin: 0;
     }
+  }
+
+  .var-pre {
+    font-family: $mono;
+    white-space: pre-line;
 
     .var-name {
       color: var(--var-color);

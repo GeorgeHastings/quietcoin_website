@@ -91,7 +91,7 @@ const types = {
         name: content[0],
         val: val
       });
-      return `<pre class="variable code"><span class="var-name">${content[0]}</span>:<span class="var-val">${val}</span></pre>`;
+      return `<pre class="var-pre code"><span class="var-name">${content[0]}</span>:<span class="var-val">${val}</span></pre>`;
     }
   },
   checkbox: {
@@ -320,9 +320,15 @@ const message = async (content) => {
 
 const enterMessage = async () => {
   const content = ENTRY.value;
+  const id = selectedMessageIndex ? noteslocal[noteIndex].messages[selectedMessageIndex].id : randomString(12);
   const type = getType(content) || 'none';
-  const id = randomString(12);
-  renderMessage(content, id);
+  const result = await message(content);
+  recordEntry(content, type, id);
+  renderMessage(result, type, id);
+};
+
+const recordEntry = (content, type, id) => {
+  const editing = selectedMessageIndex >= 0 && document.querySelector('.message-selected');
 
   localforage.getItem('notes').then(function(notes) {
     if(!notes) {
@@ -339,7 +345,7 @@ const enterMessage = async () => {
       renderNotes([note]);
     }
     else {
-      if(selectedMessageIndex === null) {
+      if(editing === null) {
         const messageData = {
           id: id,
           content: content,
@@ -353,17 +359,20 @@ const enterMessage = async () => {
           noteslocal[noteIndex].messages.push(messageData);
         }
       }
+      else {
+        noteslocal[noteIndex].messages[selectedMessageIndex].content = content;
+      }
       selectedMessageIndex = null;
       injectLine = null;
       save();
     }
   });
-};
+}
 /* jshint ignore:end */
 
 const save = () => {
   let note = {
-    exerpt: CONTENT.querySelector('.message:first-child').innerText,
+    exerpt: CONTENT.querySelector('.message:first-child .m-c *:first-child').innerText,
     messages: noteslocal[noteIndex].messages
   };
   noteslocal[noteIndex] = note;
@@ -438,36 +447,6 @@ const asyncForEach = async (array, callback) => {
   }
 }
 
-const bindMessageEvents = (element) => {
-  const checkbox = element.querySelector('input[type="checkbox"]');
-  const handle = element.querySelector('.handle');
-
-  element.querySelector('.edit-message').onclick = selectMessage;
-  handle.onclick = insertInjectLine;
-  if(checkbox) {
-    checkbox.onchange = (e) => {
-      const val = e.target.checked;
-      const el = getMessage(e);
-      const message = getMessageById(el.getAttribute('id'));
-      const index = noteslocal[noteIndex].messages.indexOf(message);
-      const content = noteslocal[noteIndex].messages[index].content;
-      const result = val ? content.replace('[ ]', '[x]') : content.replace('[x] ', '[ ]');
-      noteslocal[noteIndex].messages[index].content = result;
-      save();
-    }
-  }
-
-  handle.onmousedown = (e) => {
-    dragStartX = e.pageX;
-    dragStartY = e.pageY;
-    document.addEventListener('mousemove', reorder);
-  }
-  handle.addEventListener('mouseup', (e) => {
-    document.removeEventListener('mousemove', reorder);
-    getMessage(e).setAttribute('style', 'transform: translate3d(0,0,0)');
-  });
-};
-
 const reorder = (e) => {
   const x = e.pageX - dragStartX;
   const y = e.pageY - dragStartY;
@@ -479,18 +458,21 @@ const reorder = (e) => {
     z-index: 99999999;`)
 }
 
-const renderMessage = async (msg, id) => {
+const renderMessage = async (result, type, id) => {
   const editing = selectedMessageIndex >= 0 && document.querySelector('.message-selected');
-  let result = await message(msg);
-  let element = createElement(result);
+  const element = createElement(result);
   element.querySelector('.message').setAttribute('id', id);
   bindMessageEvents(element);
 
   if(editing) {
     const sibling = document.querySelector(`.message:nth-child(${selectedMessageIndex + 2})`);
     document.querySelector(`.message:nth-child(${selectedMessageIndex + 1})`).remove();
-    noteslocal[noteIndex].messages[selectedMessageIndex].content = msg;
-    CONTENT.insertBefore(element, sibling);
+    if(type === 'variable') {
+      showNoteDetail(noteIndex);
+    }
+    else {
+      CONTENT.insertBefore(element, sibling);
+    }
   }
   else if(injectLine) {
     let before = document.getElementById(injectLine);
@@ -507,7 +489,8 @@ const renderMessages = (index) => {
   CONTENT.innerHTML = '';
   if(messages.length > 0) {
     asyncForEach(noteslocal[index].messages, async (note) => {
-      renderMessage(note.content, note.id);
+      let result = await message(note.content);
+      renderMessage(result, note.type, note.id);
     });
   }
 }
@@ -567,6 +550,36 @@ const deleteMessage = () => {
   save();
 };
 
+const bindMessageEvents = (element) => {
+  const checkbox = element.querySelector('input[type="checkbox"]');
+  const handle = element.querySelector('.handle');
+
+  element.querySelector('.edit-message').onclick = selectMessage;
+  handle.onclick = insertInjectLine;
+  if(checkbox) {
+    checkbox.onchange = (e) => {
+      const val = e.target.checked;
+      const el = getMessage(e);
+      const message = getMessageById(el.getAttribute('id'));
+      const index = noteslocal[noteIndex].messages.indexOf(message);
+      const content = noteslocal[noteIndex].messages[index].content;
+      const result = val ? content.replace('[ ]', '[x]') : content.replace('[x] ', '[ ]');
+      noteslocal[noteIndex].messages[index].content = result;
+      save();
+    }
+  }
+
+  handle.onmousedown = (e) => {
+    dragStartX = e.pageX;
+    dragStartY = e.pageY;
+    document.addEventListener('mousemove', reorder);
+  }
+  handle.addEventListener('mouseup', (e) => {
+    document.removeEventListener('mousemove', reorder);
+    getMessage(e).setAttribute('style', 'transform: translate3d(0,0,0)');
+  });
+};
+
 const bindUIEvents = () => {
 
   ENTRY.onkeydown = (e) => {
@@ -582,7 +595,7 @@ const bindUIEvents = () => {
 
   ENTRY.onkeyup = (e) => {
     const hittingEnter = e.keyCode === 13;
-    const baseScrollHeight = 54;
+    const baseScrollHeight = 52;
     const scrollHeight = ENTRY.scrollHeight;
     const canSendMessage = ENTRY.value.length > 1;
     const rows = ((ENTRY.scrollHeight - baseScrollHeight)/22) + 1;

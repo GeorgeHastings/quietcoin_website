@@ -539,7 +539,8 @@ body {
   color: var(--text-color);
   background-color: transparent;
   border: none;
-  font: inherit;
+  font-size: inherit;
+  font-family: "Roboto Mono";
   resize: none;
   border-radius: 2px;
   background-color: var(--bg-color);
@@ -601,13 +602,15 @@ body {
       .message.sparkline svg path {
         stroke: var(--var-color); }
   .message.variable {
-    margin: 1rem 0 0 0;
-    font-family: "Roboto Mono"; }
+    margin: 1rem 0 0 0; }
     .message.variable + .message.variable {
       margin: 0; }
-    .message.variable .var-name {
+  .message .var-pre {
+    font-family: "Roboto Mono";
+    white-space: pre-line; }
+    .message .var-pre .var-name {
       color: var(--var-color); }
-    .message.variable .var-val {
+    .message .var-pre .var-val {
       color: var(--text-color); }
   .message.checkbox {
     margin-top: 1rem; }
