@@ -361,10 +361,13 @@ const recordEntry = (content, type, id) => {
       }
       else {
         noteslocal[noteIndex].messages[selectedMessageIndex].content = content;
+        selectedMessageIndex = null;
       }
-      selectedMessageIndex = null;
       injectLine = null;
       save();
+    }
+    if(type === 'variable') {
+      showNoteDetail(noteIndex);
     }
   });
 }
@@ -467,12 +470,12 @@ const renderMessage = async (result, type, id) => {
   if(editing) {
     const sibling = document.querySelector(`.message:nth-child(${selectedMessageIndex + 2})`);
     document.querySelector(`.message:nth-child(${selectedMessageIndex + 1})`).remove();
-    if(type === 'variable') {
-      showNoteDetail(noteIndex);
-    }
-    else {
+    // if(type === 'variable') {
+    //   showNoteDetail(noteIndex);
+    // }
+    // else {
       CONTENT.insertBefore(element, sibling);
-    }
+    // }
   }
   else if(injectLine) {
     let before = document.getElementById(injectLine);
