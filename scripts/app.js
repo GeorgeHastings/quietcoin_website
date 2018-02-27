@@ -7,7 +7,7 @@ const DOC_VARS = [];
 
 let noteslocal = [];
 let noteIndex = 0;
-let selectedNoteIndex = null;
+let selectedMessageIndex = null;
 let injectLine;
 let dragging = false;
 let dragStartX;
@@ -170,7 +170,6 @@ const types = {
         else {
           const fillin = () => {
             content = content.includes('http') ? content : `http://${content}`;
-            message.querySelector('img').style.display = 'none';
             message.querySelector('a').setAttribute('href', content);
             message.querySelector('p').innerText = content;
           };
@@ -183,7 +182,7 @@ const types = {
         <div class="handle">▶</div>
           <div class="m-c">
             <a target="_blank">
-              <img>
+              <img src="">
               <p>${content}</p>
             </a>
           </div>
@@ -321,18 +320,18 @@ const message = async (content) => {
 
 const enterMessage = async () => {
   const content = ENTRY.value;
-  const style = getType(content) || 'none';
+  const type = getType(content) || 'none';
   const id = randomString(12);
   renderMessage(content, id);
 
   localforage.getItem('notes').then(function(notes) {
     if(!notes) {
       const note = {
-        exerpt: CONTENT.querySelector('.message:first-child .m-c').innerText,
+        exerpt: CONTENT.querySelector('.message:first-child .m-c *:first-child').innerText,
         messages: [{
           id: id,
           content: content,
-          type: style
+          type: type
         }]
       };
       localforage.setItem('notes', [note]);
@@ -340,21 +339,21 @@ const enterMessage = async () => {
       renderNotes([note]);
     }
     else {
-      if(selectedNoteIndex === null) {
+      if(selectedMessageIndex === null) {
         const messageData = {
           id: id,
           content: content,
-          type: style
+          type: type
         }
-        const injectIndex = [...document.querySelectorAll('.message')].indexOf(document.getElementById(injectLine));
         if(injectLine) {
+          const injectIndex = [...document.querySelectorAll('.message')].indexOf(document.getElementById(injectLine));
           noteslocal[noteIndex].messages.splice(injectIndex - 1, 0, messageData);
         }
         else {
           noteslocal[noteIndex].messages.push(messageData);
         }
       }
-      selectedNoteIndex = null;
+      selectedMessageIndex = null;
       injectLine = null;
       save();
     }
@@ -429,7 +428,7 @@ const selectMessage = (e) => {
   if(ENTRY.value.length > 1 && rows !== ENTRY.getAttribute('rows')) {
     ENTRY.setAttribute('rows', rows);
   }
-  selectedNoteIndex = noteslocal[noteIndex].messages.indexOf(note);
+  selectedMessageIndex = noteslocal[noteIndex].messages.indexOf(note);
 };
 
 /* jshint ignore:start */
@@ -461,36 +460,42 @@ const bindMessageEvents = (element) => {
   handle.onmousedown = (e) => {
     dragStartX = e.pageX;
     dragStartY = e.pageY;
-    handle.addEventListener('mousemove', reorder);
+    document.addEventListener('mousemove', reorder);
   }
-  handle.onmouseup = (e) => {
-    handle.removeEventListener('mousemove', reorder);
+  handle.addEventListener('mouseup', (e) => {
+    document.removeEventListener('mousemove', reorder);
     getMessage(e).setAttribute('style', 'transform: translate3d(0,0,0)');
-  }
+  });
 };
 
 const reorder = (e) => {
   const x = e.pageX - dragStartX;
   const y = e.pageY - dragStartY;
-  getMessage(e).setAttribute('style', `transform: translate3d(${x}px,${y}px,0); opacity: 0.5`)
+  getMessage(e).setAttribute('id', 'dragging');
+  getMessage(e).setAttribute('style', `
+    transform: translate3d(${x}px,${y}px,0);
+    opacity: 0.5;
+    position:relative;
+    z-index: 99999999;`)
 }
 
 const renderMessage = async (msg, id) => {
-  const editing = selectedNoteIndex >= 0 && document.querySelector('.message-selected');
-  console.log(editing)
+  const editing = selectedMessageIndex >= 0 && document.querySelector('.message-selected');
   let result = await message(msg);
   let element = createElement(result);
   element.querySelector('.message').setAttribute('id', id);
   bindMessageEvents(element);
+
   if(editing) {
-    const sibling = document.querySelector(`.message:nth-child(${selectedNoteIndex + 2})`);
-    document.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`).remove();
+    const sibling = document.querySelector(`.message:nth-child(${selectedMessageIndex + 2})`);
+    document.querySelector(`.message:nth-child(${selectedMessageIndex + 1})`).remove();
+    noteslocal[noteIndex].messages[selectedMessageIndex].content = msg;
     CONTENT.insertBefore(element, sibling);
   }
   else if(injectLine) {
     let before = document.getElementById(injectLine);
-    CONTENT.insertBefore(element, before);
     document.querySelector('.inject-line').remove();
+    CONTENT.insertBefore(element, before);
   }
   else {
     CONTENT.appendChild(element);
@@ -502,11 +507,7 @@ const renderMessages = (index) => {
   CONTENT.innerHTML = '';
   if(messages.length > 0) {
     asyncForEach(noteslocal[index].messages, async (note) => {
-      let result = await message(note.content);
-      let element = createElement(result);
-      element.querySelector('.message').setAttribute('id', note.id);
-      bindMessageEvents(element);
-      CONTENT.appendChild(element);
+      renderMessage(note.content, note.id);
     });
   }
 }
@@ -528,7 +529,7 @@ const deleteNote = (index) => {
 const renderNotes = (notes) => {
   LISTING.innerHTML = '';
   notes.forEach((note, index) => {
-    const listing = `<li onclick="showNoteDetail(${index})"><span>${note.exerpt.slice(1)}</span><div class="delete" onclick="deleteNote(${index})">✕</div></li>`;
+    const listing = `<li onclick="showNoteDetail(${index})"><span>${note.exerpt.replace('▶', '')}</span><div class="delete" onclick="deleteNote(${index})">✕</div></li>`;
     LISTING.innerHTML += listing;
   });
   showNoteDetail(0);
@@ -560,9 +561,9 @@ const loadNotes = () => {
 };
 
 const deleteMessage = () => {
-  CONTENT.querySelector(`.message:nth-child(${selectedNoteIndex + 1})`).remove();
-  noteslocal[noteIndex].messages.splice(selectedNoteIndex, 1);
-  selectedNoteIndex = null;
+  CONTENT.querySelector(`.message:nth-child(${selectedMessageIndex + 1})`).remove();
+  noteslocal[noteIndex].messages.splice(selectedMessageIndex, 1);
+  selectedMessageIndex = null;
   save();
 };
 
@@ -572,7 +573,7 @@ const bindUIEvents = () => {
     const hittingEnter = e.keyCode === 13;
     if(hittingEnter) {
       e.preventDefault();
-      if(selectedNoteIndex && ENTRY.value.length < 1) {
+      if(selectedMessageIndex && ENTRY.value.length < 1) {
         deleteMessage();
         ENTRY.setAttribute('rows', 1);
       }
@@ -602,8 +603,8 @@ const bindUIEvents = () => {
   };
 
   ENTRY.onblur = () => {
-    if(selectedNoteIndex && document.querySelector('.message-selected')) {
-      selectedNoteIndex = null;
+    if(selectedMessageIndex && document.querySelector('.message-selected')) {
+      selectedMessageIndex = null;
       document.querySelector('.message-selected').classList.remove('message-selected');
       ENTRY.value = '';
     }

@@ -492,7 +492,7 @@ body {
   width: 250px;
   border-right: 1px solid var(--border-color); }
   .listing ul li {
-    padding: 1rem;
+    padding: 0.85rem;
     font-size: 0.85rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -635,6 +635,8 @@ body {
     .message.url .m-c {
       display: inline-table;
       background-color: var(--select-color); }
+      .message.url .m-c img[src=""] {
+        display: none; }
       .message.url .m-c p {
         padding: 0 1rem 1rem 1rem;
         max-width: 320px;
@@ -665,7 +667,7 @@ h1:focus, h2:focus, h3:focus, h4:focus {
   display: inline;
   font-family: "Roboto Mono";
   padding: 0.1rem 0.4rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-math);
   background-color: var(--border-color);
   border-radius: 2px; }
