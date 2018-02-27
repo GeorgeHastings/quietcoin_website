@@ -557,6 +557,8 @@ const bindMessageEvents = (element) => {
   const checkbox = element.querySelector('input[type="checkbox"]');
   const handle = element.querySelector('.handle');
 
+  element.querySelector('.message').ondblclick = selectMessage;
+
   element.querySelector('.edit-message').onclick = selectMessage;
   handle.onclick = insertInjectLine;
   if(checkbox) {
@@ -569,14 +571,14 @@ const bindMessageEvents = (element) => {
       const result = val ? content.replace('[ ]', '[x]') : content.replace('[x] ', '[ ]');
       noteslocal[noteIndex].messages[index].content = result;
       save();
-    }
+    };
   }
 
   handle.onmousedown = (e) => {
     dragStartX = e.pageX;
     dragStartY = e.pageY;
     document.addEventListener('mousemove', reorder);
-  }
+  };
   handle.addEventListener('mouseup', (e) => {
     document.removeEventListener('mousemove', reorder);
     getMessage(e).setAttribute('style', 'transform: translate3d(0,0,0)');
