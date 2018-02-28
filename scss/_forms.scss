@@ -232,6 +232,11 @@ input[type=checkbox] + label:before {
   content: "\00a0 ";
 }
 
+input[type=checkbox]:checked + label {
+  text-decoration: line-through;
+  color: var(--subtle-text-color);
+}
+
 input[type=checkbox]:checked + label:before {
   content: "✔";
   background-color: var(--var-color);

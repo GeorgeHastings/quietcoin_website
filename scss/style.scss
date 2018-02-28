@@ -169,6 +169,7 @@ body {
   border: none;
   font-size: inherit;
   font-family: $mono;
+  letter-spacing: -0.2px;
   resize: none;
   border-radius: 2px;
   background-color: var(--bg-color);
@@ -240,6 +241,7 @@ body {
       width: 100%;
       padding: 1rem;
       font-family: $mono;
+      letter-spacing: -0.2px;
       background-color: var(--select-color);
       overflow-x: scroll;
       color: var(--subtle-text-color);
@@ -272,6 +274,7 @@ body {
 
   .var-pre {
     font-family: $mono;
+    letter-spacing: -0.2px;
     white-space: pre-line;
 
     .var-name {
@@ -287,14 +290,17 @@ body {
   }
 
   &.quote {
-    padding-left: 2rem;
-    margin: 2rem 0 2rem 2rem;
-    max-width: calc(100% - 2rem);
-    border-left: 3px solid var(--border-color);
     color: var(--subtle-text-color);
+    margin: 2rem 0 2rem 0rem;
+
+    .m-c {
+      padding-left: 2rem;
+      max-width: calc(100% - 2rem);
+      border-left: 3px solid var(--border-color);
+    }
 
     .handle {
-      margin-left: calc(-4rem - 2px);
+      // margin-left: calc(-4rem - 2px);
     }
 
     & + & {
@@ -372,6 +378,7 @@ h1,h2,h3,h4 {
 .inline-code {
   display: inline;
   font-family: $mono;
+  letter-spacing: -0.2px;
   padding: 0.1rem 0.4rem;
   font-size: 0.85rem;
   color: var(--text-math);
@@ -387,6 +394,7 @@ h1,h2,h3,h4 {
   padding-right: 1rem;
   color: var(--backdrop-color);
   font-family: $mono;
+  letter-spacing: -0.2px;
   font-size: 0.65rem;
   cursor: pointer;
   user-select: none;
