@@ -36,6 +36,7 @@ body {
   --text-color: white;
   --subtle-text-color: $darkgray;
   --backdrop-color: lighten($slate, 5%);
+  --focus-color: lighten($slate, 10%);
   --select-color: lighten($black, 5%);
   --hover-color: lighten($black, 2%);
   --radio-color: $darkgray;
@@ -49,6 +50,7 @@ body {
   --text-color: $black;
   --subtle-text-color: $darkgray;
   --backdrop-color: $gray;
+  --focus-color: darken($lightgray, 10%);
   --select-color: lighten($lightgray, 1.5%);
   --hover-color: lighten($lightgray, 3%);
   --radio-color: $gray;
@@ -184,7 +186,7 @@ body {
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px var(--select-color);
+    box-shadow: inset 0 0 0 2px var(--focus-color);
   }
 
   &.loading {
@@ -217,7 +219,8 @@ body {
     margin-top: 1rem;
   }
 
-  &.text {
+  &.text,
+  &.quote {
     margin-top: 1rem;
 
     .m-c {

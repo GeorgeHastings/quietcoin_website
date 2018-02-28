@@ -19,7 +19,7 @@ pre .storage {
 }
 
 pre .string, pre .comment.docstring {
-  color: cyan;
+  color: Turquoise ;
 }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
@@ -27,11 +27,11 @@ pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.ta
 }
 
 pre .support.css-property {
-  color: white;
+  color: var(--var-color);
 }
 
 pre .keyword.operator {
-  color: white;
+  color: var(--var-color);
 }
 
 pre .keyword.unit {
@@ -47,7 +47,7 @@ pre .support.attribute {
 }
 
 pre .keyword, pre .selector {
-  color: cyan;
+  color: Turquoise ;
 }
 
 pre .inherited-class {
@@ -71,7 +71,7 @@ pre .function.call {
 }
 
 [data-language="unknown"] {
-  color: white;
+  color: var(--text-color);
 }
 
 [data-language="c"] .function.call, .lang-c .function.call, .language-c .function.call {

@@ -8,16 +8,16 @@ pre .storage {
   color: violet; }
 
 pre .string, pre .comment.docstring {
-  color: cyan; }
+  color: Turquoise; }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
   color: #95A4B3; }
 
 pre .support.css-property {
-  color: white; }
+  color: var(--var-color); }
 
 pre .keyword.operator {
-  color: white; }
+  color: var(--var-color); }
 
 pre .keyword.unit {
   color: #e26c6a; }
@@ -29,7 +29,7 @@ pre .support.attribute {
   color: #67e0ae; }
 
 pre .keyword, pre .selector {
-  color: cyan; }
+  color: Turquoise; }
 
 pre .inherited-class {
   font-style: italic; }
@@ -47,7 +47,7 @@ pre .function.call {
   color: #08907e; }
 
 [data-language="unknown"] {
-  color: white; }
+  color: var(--text-color); }
 
 [data-language="c"] .function.call, .lang-c .function.call, .language-c .function.call {
   color: #95A4B3; }

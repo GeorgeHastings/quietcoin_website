@@ -12,6 +12,7 @@ let injectLine;
 let dragging = false;
 let dragStartX;
 let dragStartY;
+let shifted = false;
 
 const scrollToBottom = () => {
   document.querySelector('.detail').scrollTop += 15000;
@@ -186,7 +187,6 @@ const types = {
               <p>${content}</p>
             </a>
           </div>
-          <div class="edit-message">Edit</div>
         </div>`;
     }
   }
@@ -313,9 +313,9 @@ const message = async (content) => {
   }
   if(type) {
     const result = await types[type].format(content);
-    return type === 'url' ? result : `<div class="message ${type}"><div class="handle">▶</div><div class="m-c">${result}</div><div class="edit-message">Edit</div></div>`;
+    return type === 'url' ? result : `<div class="message ${type}"><div class="handle">▶</div><div class="m-c">${result}</div></div>`;
   }
-  return `<div class="message text"><div class="handle">▶</div><div class="m-c">${content}</div><div class="edit-message">Edit</div></div>`;
+  return `<div class="message text"><div class="handle">▶</div><div class="m-c">${content}</div></div>`;
 };
 
 const enterMessage = async () => {
@@ -411,7 +411,7 @@ const getMessageById = (id) => {
 };
 
 const getMessage = (e) => {
-  let el = e.target;
+  let el = e.target || e;
   if(!el.classList.contains('message')){
     while ((el = el.parentElement) && !el.classList.contains('message'));
   }
@@ -428,18 +428,13 @@ const insertInjectLine = (e) => {
 };
 
 const selectMessage = (e) => {
-  let el = getMessage(e);
+  let el = getMessage(e) || e;
   const id = el.getAttribute('id');
   const note = getMessageById(id);
   ENTRY.value = note.content;
   ENTRY.focus();
-  const baseScrollHeight = 54;
-  const scrollHeight = ENTRY.scrollHeight;
-  const rows = ((ENTRY.scrollHeight - baseScrollHeight)/22) + 1;
   el.classList.add('message-selected');
-  if(ENTRY.value.length > 1 && rows !== ENTRY.getAttribute('rows')) {
-    ENTRY.setAttribute('rows', rows);
-  }
+  fitEntryContent();
   selectedMessageIndex = noteslocal[noteIndex].messages.indexOf(note);
 };
 
@@ -559,7 +554,7 @@ const bindMessageEvents = (element) => {
 
   element.querySelector('.message').ondblclick = selectMessage;
 
-  element.querySelector('.edit-message').onclick = selectMessage;
+  // element.querySelector('.edit-message').onclick = selectMessage;
   handle.onclick = insertInjectLine;
   if(checkbox) {
     checkbox.onchange = (e) => {
@@ -585,6 +580,14 @@ const bindMessageEvents = (element) => {
   });
 };
 
+const fitEntryContent = () => {
+  ENTRY.setAttribute('rows', 1);
+  const rows = (((ENTRY.scrollHeight - 53)/22) + 1).toFixed(0);
+  if(ENTRY.value.length > 1) {
+    ENTRY.setAttribute('rows', rows);
+  }
+};
+
 const bindUIEvents = () => {
 
   ENTRY.onkeydown = (e) => {
@@ -600,24 +603,41 @@ const bindUIEvents = () => {
 
   ENTRY.onkeyup = (e) => {
     const hittingEnter = e.keyCode === 13;
-    const baseScrollHeight = 52;
-    const scrollHeight = ENTRY.scrollHeight;
     const canSendMessage = ENTRY.value.length > 1;
-    const rows = ((ENTRY.scrollHeight - baseScrollHeight)/22) + 1;
-    if(ENTRY.value.length > 1 && rows !== ENTRY.getAttribute('rows')) {
-      ENTRY.setAttribute('rows', rows);
-    }
+
     if(hittingEnter && canSendMessage) {
       enterMessage();
       ENTRY.value = '';
-      ENTRY.setAttribute('rows', 1);
+      // ENTRY.setAttribute('rows', 1);
     }
     if(ENTRY.value.charAt(ENTRY.value.length - 1) === '$') {
       const varResults = DOC_VARS.map(vbl => {
         return vbl.name;
       });
-      console.log(varResults);
     }
+    if(ENTRY === document.activeElement && shifted) {
+      let toSelect;
+      let toDeselect;
+      if(e.key === 'ArrowUp') {
+        if(selectedMessageIndex === null) {
+          toSelect = CONTENT.querySelector('.message:last-child');
+          toDeselect = 0;
+        }
+        else {
+          toSelect = CONTENT.querySelector(`.message:nth-child(${selectedMessageIndex})`);
+          toDeselect = 2;
+        }
+        selectMessage(toSelect);
+        CONTENT.querySelector(`.message:nth-child(${selectedMessageIndex + toDeselect})`).classList.remove('message-selected');
+      }
+      if(e.key === 'ArrowDown') {
+        toSelect = CONTENT.querySelector(`.message:nth-child(${selectedMessageIndex + 2})`);
+        toDeselect = 0;
+        selectMessage(toSelect);
+        CONTENT.querySelector(`.message:nth-child(${selectedMessageIndex + toDeselect})`).classList.remove('message-selected');
+      }
+    }
+    fitEntryContent();
   };
 
   ENTRY.onblur = () => {
@@ -625,6 +645,7 @@ const bindUIEvents = () => {
       selectedMessageIndex = null;
       document.querySelector('.message-selected').classList.remove('message-selected');
       ENTRY.value = '';
+      fitEntryContent();
     }
     if(injectLine) {
       document.querySelector('.inject-line').remove();
@@ -632,7 +653,17 @@ const bindUIEvents = () => {
     }
   };
 
+  document.onkeydown = (e) => {
+    if(e.keyCode === 16){
+      shifted = true;
+    }
+  };
 
+  document.onkeyup = (e) => {
+    if(e.keyCode === 16){
+      shifted = false;
+    }
+  };
 
   document.body.onkeyup = (e) => {
     if(e.key === 'Backspace') {

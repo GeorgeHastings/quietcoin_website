@@ -440,6 +440,7 @@ body {
   --text-color: white;
   --subtle-text-color: #95A4B3;
   --backdrop-color: #42455a;
+  --focus-color: #4d5168;
   --select-color: #2c2f3c;
   --hover-color: #262833;
   --radio-color: #95A4B3;
@@ -452,6 +453,7 @@ body {
   --text-color: #21232e;
   --subtle-text-color: #95A4B3;
   --backdrop-color: #bcc6d1;
+  --focus-color: #ccdce8;
   --select-color: #f4f8fa;
   --hover-color: #fafbfd;
   --radio-color: #bcc6d1;
@@ -555,7 +557,7 @@ body {
     background-color: red; }
   .detail-content-entry:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px var(--select-color); }
+    box-shadow: inset 0 0 0 2px var(--focus-color); }
   .detail-content-entry.loading {
     opacity: 0.25;
     pointer-events: none; }
@@ -578,9 +580,9 @@ body {
   cursor: pointer; }
   .message:not(.list) + .list {
     margin-top: 1rem; }
-  .message.text {
+  .message.text, .message.quote {
     margin-top: 1rem; }
-    .message.text .m-c {
+    .message.text .m-c, .message.quote .m-c {
       white-space: pre-line; }
   .message.math pre {
     color: var(--text-math); }
