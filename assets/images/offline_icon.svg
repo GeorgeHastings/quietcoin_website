@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>wifi-off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-Feb2018-Copy" transform="translate(-347.000000, -2252.000000)">
+            <g id="Group" transform="translate(208.000000, 2233.000000)">
+                <g id="wifi-off" transform="translate(140.000000, 20.000000)">
+                    <path d="M0,0 L22,22" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M15.72,10.06 C16.5391008,10.4597509 17.3050353,10.9602959 18,11.55" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M4,11.55 C5.48208292,10.3108283 7.26587266,9.48621369 9.17,9.16" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M9.71,4.05 C14.0387656,3.701198 18.3233621,5.12699041 21.58,8" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M0.42,8 C1.80716514,6.77385012 3.39769826,5.79922557 5.12,5.12" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7.53,15.11 C9.61082675,13.6316733 12.3991733,13.6316733 14.48,15.11" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <rect id="Rectangle-2" fill="#FFFFFF" x="10" y="18" width="2" height="2" rx="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
