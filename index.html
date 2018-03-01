@@ -2,60 +2,62 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Catalog</title>
+    <title>Quietcoin</title>
     <link rel="stylesheet" href="css/style.css" media="screen">
-    <link rel="stylesheet" href="css/highlighter.css"></link>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	  <meta name="apple-mobile-web-app-capable" content="yes" />
   </head>
-  <body class="light-theme">
+  <body>
     <div class="wrapper">
-      <div class="listing">
-        <div class="listing-header">
-          <h4 class="logo">catalog</h4>
-          <div class="button" onclick="newNote()">
-            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M19.167 10.833h-8.334v8.334a.834.834 0 0 1-1.666 0v-8.334H.833a.834.834 0 0 1 0-1.666h8.334V.833a.834.834 0 0 1 1.666 0v8.334h8.334a.834.834 0 0 1 0 1.666z" fill="#95A4B3" fill-rule="evenodd"/></svg>
+      <section class="top-logo">
+        <img src="assets/images/logo.png">
+      </section>
+      <section class="introduction">
+        <h1>Check your balance</h1>
+        <h3>Quietcoin rewards you for disconnecting.</h3>
+        <p>We work with mission-aligned partners to provide unique experiences and rewards for people who want a healthier screentime diet.</p>
+        <div class="action-group">
+          <div class="btn btn--main">Join the waitlist</div>
+          <div class="btn btn--secondary"><a href="partners.html">Become a partner</a></div>
+        </div>
+      </section>
+      <section class="full-break">
+        <h2>In the digital economy, our attention is the product. Today’s biggest businesses make money by keeping us glued to our screens as much as possible. Even when we do pull away, most of these products are designed to pull us back in. <span>Quietcoin helps you reclaim your time and focus on what matters most.</span></h2>
+      </section>
+      <section class="features">
+        <div class="feature">
+          <div class="icon">
+            <img src="assets/images/offline_icon.svg">
           </div>
+          <h3>Disconnect</h3>
+          <p>The app starts a timer that tracks how long you are smartphone-free.</p>
         </div>
-        <ul id="listing"></ul>
-      </div>
-      <div id="detail" class="detail">
-        <div id="detailContent" class="detail-content"></div>
-        <textarea rows="1" id="entry" class="detail-content-entry" placeholder="Write here"></textarea>
-        <div id="autoSuggest"></div>
-      </div>
-      <div id="rail" class="rail">
-        <div class="radio-group">
-          <div class="radio-button">
-              <input id="themeLight" type="radio" name="theme" checked>
-              <label for="themeLight">Light</label>
-            </div> <div class="radio-button">
-              <input id="themeDark" type="radio" name="theme">
-              <label for="themeDark">Dark</label>
-            </div>
+        <div class="feature">
+          <div class="icon">
+            <img src="assets/images/quietcoin_icon.svg">
+          </div>
+          <h3>Collect</h3>
+          <p>The longer you’re disconnected, the more Quietcoins you earn.</p>
         </div>
-        <h5>Formats</h5>
-        <ul>
-          <li># h1</li>
-          <li>## h2</li>
-          <li>### h3</li>
-          <li>#### h4</li>
-          <li>* list</li>
-          <li>> quote</li>
-          <li>[link]</li>
-          <li>[ ] checkbox</li>
-          <li>$variable: value;</li>
-          <li>@api@.resp/</li>
-          <li>`inline code`</li>
-          <li>```code block```</li>
-        </ul>
-      </div>
+        <div class="feature">
+          <div class="icon">
+            <img src="assets/images/heart_icon.svg">
+          </div>
+          <h3>Redeem</h3>
+          <p>Trade in your Quietcoins for fun and meaningful experiences from our partners.</p>
+        </div>
+      </section>
+      <section class="sign-off">
+        <h1>Your attention is valuable.<br>Live deliberately.</h1>
+        <div class="action-group">
+          <div class="btn btn--main">Join the waitlist</div>
+          <div class="btn btn--secondary"><a href="partners.html">Become a partner</a></div>
+        </div>
+      </section>
+      <footer>
+        <p>© 2018 Quietcoin</p>
+      </footer>
     </div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  <script src="scripts/libs/detectlang.js"></script>
-  <script src="scripts/libs/rainbow-custom.min.js"></script>
-  <script src="scripts/libs/localforage.min.js"></script>
-  <script src="scripts/basics.js"></script>
   <script src="scripts/app.js"></script>
 </html>

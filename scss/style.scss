@@ -1,25 +1,23 @@
 @import 'reset';
-@import 'variables';
-@import 'mixins';
-@import 'utilities';
-@import 'typeography';
-@import 'forms';
-@import 'buttons';
 
 * {box-sizing: border-box;}
 
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
-
-$mono: 'Roboto Mono';
+:root {
+  --display-font: 'Domaine Display Narrow TEST';
+  --bg-color: #000;
+  --main-color: #3AF0BB;
+  --main-color-darker: #259476;
+  --text-color: white;
+  --secondary-text-color: #7C95A0;
+}
 
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+  // height: 100%;
 }
 
 body {
-  font-family: "Neue Haas Grotesk Text Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;;
   -webkit-font-smoothing: antialiased;
   -webkit-text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
@@ -28,434 +26,136 @@ body {
   line-height: 140%;
   color: var(--text-color);
   background-color: var(--bg-color);
-}
-
-.dark-theme {
-  --bg-color: $black;
-  --border-color: $slate;
-  --text-color: white;
-  --subtle-text-color: $darkgray;
-  --backdrop-color: lighten($slate, 5%);
-  --focus-color: lighten($slate, 10%);
-  --select-color: lighten($black, 5%);
-  --hover-color: lighten($black, 2%);
-  --radio-color: $darkgray;
-  --var-color: cyan;
-  --text-math: cyan;
-}
-
-.light-theme {
-  --bg-color: white;
-  --border-color: $lightgray;
-  --text-color: $black;
-  --subtle-text-color: $darkgray;
-  --backdrop-color: $gray;
-  --focus-color: darken($lightgray, 10%);
-  --select-color: lighten($lightgray, 1.5%);
-  --hover-color: lighten($lightgray, 3%);
-  --radio-color: $gray;
-  --var-color: $blue;
-  --text-math: $blue;
-}
-
-.wrapper,
-.listing,
-.detail,
-.rail {
-  height: inherit;
-}
-
-.listing-header {
-  height: 60px;
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 1rem;
-  align-items: center;
-  @include flex-row;
-
-  h5 {
-    margin: 0;
-  }
-
-  .button:hover {
-    svg path {
-      fill: var(--text-color);
-    }
-  }
-
-  .button svg {
-    vertical-align: middle;
-  }
-}
-
-.logo {
-  font-family: 'Eksell Display Web';
-  font-weight: normal;
-  font-size: 24px;
-  margin: 0;
+  text-align: center;
 }
 
 .wrapper {
-  display: flex;
-  align-items: flex-start;
-}
-
-.listing {
-  width: 250px;
-  border-right: 1px solid var(--border-color);
-
-  ul {
-
-    li {
-      padding: 0.85rem;
-      font-size: 0.85rem;
-      border-bottom: 1px solid var(--border-color);
-      @include flex-row;
-
-      .delete {
-        color: var(--backdrop-color);
-        cursor: pointer;
-
-        &:hover {
-          color: var(--text-color);
-        }
-      }
-    }
-
-    li span {
-      margin-right: 1rem;
-      color: var(--subtle-text-color);
-      @include truncate;
-    }
-
-    li.selected {
-      background-color: var(--border-color);
-    }
-
-    li.selected span {
-      color: var(--text-color);
-    }
+  @media (max-width: 580px) {
+    padding: 0 10px;
   }
 }
 
-.detail {
-  width: calc(100% - 500px);
-  height: calc(100% - 100px);
-  overflow-y: scroll;
-}
+h1 {
+  margin-bottom: 3.18rem;
+  font-size: 3.18rem;
+  line-height: 140%;
+  font-family: var(--display-font);
 
-.detail-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: auto;
-  padding: 28px 2rem 2rem 2rem;
-
-  .message:last-child {
-    margin-bottom: 0;
+  @media (max-width: 580px) {
+    font-size: 2.5rem;
   }
 }
 
-.detail-content-entry {
-  position: absolute;
-  bottom: 0;
-  z-index: 9999;
-  -webkit-appearance: none;
-  appearance: none;
-  width: calc(100% - 4rem - 500px);
-  padding: 1rem;
-  margin: 0rem 2rem 2rem 2rem;
-  color: var(--text-color);
-  background-color: transparent;
-  border: none;
-  font-size: inherit;
-  font-family: $mono;
-  letter-spacing: -0.2px;
-  resize: none;
-  border-radius: 2px;
-  background-color: var(--bg-color);
-  box-shadow: inset 0 0 0 2px var(--border-color);
-  backface-visibility: hidden;
-  overflow-y: scroll;
+h2 {
+  font-size: 2.5rem;
+  line-height: 140%;
+  font-family: var(--display-font);
 
-  &:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: red;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0 2px var(--focus-color);
-  }
-
-  &.loading {
-    opacity: 0.25;
-    pointer-events: none;
+  @media (max-width: 580px) {
+    font-size: 1.8rem;
   }
 }
 
-.rail {
-  min-width: 250px;
-  border-left: 1px solid var(--border-color);
-  padding: 2rem;
-  font-size: 0.85rem;
-  color: var(--subtle-text-color);
+h3 {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
 
-  li {
-    line-height: 1.85rem;
+p {
+  color: var(--secondary-text-color);
+  max-width: 570px;
+  line-height: 150%;
+  margin: 0 auto;
+}
+
+section {
+  margin: 0 auto;
+  padding: 150px calc((100% - 1024px) / 2);
+
+  @media (max-width: 580px) {
+    padding: 5rem calc((100% - 1024px) / 2);
   }
 }
 
-.message {
+.top-logo {
+  margin-top: -30vw;
+  padding-bottom: 0px;
+
+  img {
+    max-width: 700px;
+    width: 80vw;
+    margin-right: -6.5%;
+  }
+}
+
+.full-break {
+  background: url('../assets/images/ferns.jpg');
+  background-size: cover;
+
+  h2 span {
+    color: var(--main-color);
+  }
+}
+
+.features {
   display: flex;
   justify-content: space-between;
-  position: relative;
-  line-height: 150%;
-  padding: 0 2rem;
-  cursor: pointer;
 
-  &:not(.list) + .list {
-    margin-top: 1rem;
+  .feature {
+    width: calc(100% - 3rem);
+    max-width: 350px;
+    margin: 0 auto;
   }
 
-  &.text,
-  &.quote {
-    margin-top: 1rem;
-
-    .m-c {
-      white-space: pre-line;
-    }
+  .icon {
+    display: inline-block;
+    padding: 1rem;
+    max-height: 50px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--main-color);
   }
 
-  &.math pre {
-    color: var(--text-math);
+  .icon img {
+    height: 1rem;
   }
 
-  &.code,
-  &.math {
-    margin: 1rem 0 0 0;
+  @media (max-width: 580px) {
+    flex-direction: column;
 
-    .m-c {
-      width: 100%;
-      padding: 1rem;
-      font-family: $mono;
-      letter-spacing: -0.2px;
-      background-color: var(--hover-color);
-      border: 1px solid var(--select-color);
-      overflow-x: scroll;
-      color: var(--subtle-text-color);
+    .feature + .feature {
+      margin-top: 3rem;
     }
-  }
-
-  &.sparkline {
-    margin-top: 1rem;
-
-    .m-c {
-      width: 100%;
-    }
-
-    svg {
-      transform: rotateX(180deg);
-
-      path {
-        stroke: var(--var-color);
-      }
-    }
-  }
-
-  &.variable {
-    margin: 1rem 0 0 0;
-
-    & + & {
-      margin: 0;
-    }
-  }
-
-  .var-pre {
-    font-family: $mono;
-    letter-spacing: -0.2px;
-    white-space: pre-line;
-
-    .var-name {
-      color: var(--var-color);
-    }
-    .var-val {
-      color: var(--text-color);
-    }
-  }
-
-  &.checkbox {
-    margin-top: 1rem;
-  }
-
-  &.quote {
-    color: var(--subtle-text-color);
-    margin: 2rem 0 2rem 0rem;
-
-    .m-c {
-      padding-left: 2rem;
-      max-width: calc(100% - 2rem);
-      border-left: 3px solid var(--border-color);
-    }
-
-    .handle {
-      // margin-left: calc(-4rem - 2px);
-    }
-
-    & + & {
-      margin-top: 0;
-    }
-  }
-
-  &.list {
-    .m-c:before {
-      content: "*";
-      line-height: 0.75rem;
-      vertical-align: bottom;
-      font-size: 1.5rem;
-      margin-right: 1rem;
-      color: var(--subtle-text-color);
-    }
-
-    & + .message:not(.list)  {
-      margin-top: 1rem;
-    }
-  }
-
-  &.url {
-    margin: 1rem 0;
-
-    .m-c {
-      display: inline-table;
-      background-color: var(--select-color);
-
-      img[src=""] {
-        display: none;
-      }
-
-      p {
-        padding: 0 1rem 1rem 1rem;
-        max-width: 320px;
-        @include truncate;
-      }
-
-      a {
-        color: var(--subtle-text-color);
-        text-decoration: none;
-        display: block;
-      }
-    }
-  }
-
-  &:hover {
-    background-color: var(--hover-color);
-
-    .handle {
-      display: inline-block;
-    }
-
-    .edit-message {
-      display: inline-block;
-    }
-  }
-
-  &.message-selected {
-    background-color: var(--select-color);
   }
 }
 
-.m-c {
-  img {
-    width: 100%;
+.action-group {
+  margin-top: 3rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+
+  &--main {
+    background-color: var(--main-color-darker);
+  }
+
+  &--secondary {
+    display: block;
+    color: var(--main-color);
   }
 }
 
-.message,
-.list,
-.code,
-.text,
-h1,h2,h3,h4 {
-  &:focus {
-    outline: none;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.inline-code {
-  display: inline;
-  font-family: $mono;
-  letter-spacing: -0.2px;
-  padding: 0.1rem 0.4rem;
-  font-size: 0.85rem;
-  color: var(--text-math);
-  background-color: var(--border-color);
-  border-radius: 2px;
+.block {
+  margin-bottom: 3rem;
 }
 
-.handle {
-  display: none;
-  position: absolute;
-  margin-left: -2rem;
-  margin-top: -11px;
-  padding-right: 1rem;
-  color: var(--backdrop-color);
-  font-family: $mono;
-  letter-spacing: -0.2px;
-  font-size: 0.65rem;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    color: var(--text-color);
-  }
-}
-
-.edit-message {
-  margin-right: -2rem;
-  display: none;
-  font-size: 0.85rem;
-  line-height: 0.7rem;
-  padding-left: 0.5rem;
-  color: --backdrop-color;
-  background-color: var(--bg-color);
-  font-family: 'Arial';
-  cursor: pointer;
-
-  &:hover {
-    color: var(--text-color);
-  }
-}
-
-.dummy-link-loader {
-  width: 320px;
-  height: 239px;
-  margin-left: 2rem !important;
-  @include borderanimate;
-}
-
-.insert-above {
-  // border-top: 1px solid var(--text-math);
-  box-shadow: 0 -2px 0 var(--text-math);
-}
-
-.inject-line {
-  height: 2px;
-  width: 100%;
-  background-image: linear-gradient(to right, transparent, var(--text-math), transparent);
-  background-size: 200%;
-  animation: borders 0.5s linear infinite -0.75s;
-
-  & + > * {
-    margin-top: 0 ;
-  }
-
-  @keyframes borders {
-    0% {
-      background-position: -100% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
+footer {
+  padding: 1rem 0;
 }

@@ -4,7 +4,7 @@
 	{
 		"name": "Process All Remaining Files and Folders",
 		"stepType": 1,
-		"uuidString": "2FB87862-5C79-467D-BBD7-FB2F4038021A"
+		"uuidString": "7F9592B3-6B67-43ED-A415-1CAA48051D42"
 		}
 	],
 "creatorBuild": "26268",
@@ -16,46 +16,56 @@
 		"oAP": "\/.jshintrc",
 		"oF": 0
 		},
-	"\/assets\/images\/pencil2.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/assets\/images\/pencil2.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/assets\/images\/plus.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/assets\/images\/plus.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/assets\/images\/social_tout.png": {
-		"ft": 32768,
-		"iS": 9774,
+	"\/assets\/images\/ferns.jpg": {
+		"ft": 16384,
+		"iS": 321454,
 		"oA": 0,
-		"oAP": "\/assets\/images\/social_tout.png",
+		"oAP": "\/assets\/images\/ferns.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 1,
+		"q": 100
+		},
+	"\/assets\/images\/heart_icon.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/assets\/images\/heart_icon.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/assets\/images\/logo.png": {
+		"ft": 32768,
+		"iS": 523734,
+		"oA": 0,
+		"oAP": "\/assets\/images\/logo.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/css\/highlighter.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/highlighter-min.css",
+	"\/assets\/images\/offline_icon.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/assets\/images\/offline_icon.svg",
 		"oF": 0,
-		"oS": 3
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/assets\/images\/quietcoin_icon.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/assets\/images\/quietcoin_icon.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"\/css\/style.css": {
 		"aP": 1,
@@ -72,6 +82,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/index.html",
+		"oF": 0
+		},
+	"\/partners.html": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/partners.html",
 		"oF": 0
 		},
 	"\/README.md": {
@@ -92,16 +109,6 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/scripts\/app-min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/app-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/scripts\/app.js": {
 		"ft": 64,
 		"ma": 0,
@@ -111,105 +118,6 @@
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
-		},
-	"\/scripts\/basics-min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/basics-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scripts\/basics.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/basics-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scripts\/libs\/detectlang.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/libs\/detectlang-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scripts\/libs\/localforage.min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/libs\/localforage.min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scripts\/libs\/rainbow-custom.min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/libs\/rainbow-custom.min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scripts\/libs\/tippet.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/scripts\/libs\/tippet-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/scss\/_buttons.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_buttons.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/_forms.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_forms.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/_mixins.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_mixins.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
 		},
 	"\/scss\/_reset.scss": {
 		"aP": 0,
@@ -221,58 +129,6 @@
 		"oA": 1,
 		"oAP": "\/scss\/_reset.css",
 		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/_typeography.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_typeography.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/_utilities.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_utilities.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/_variables.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/scss\/_variables.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
-	"\/scss\/highlighter.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/css\/highlighter.css",
-		"oF": 2,
 		"oS": 0,
 		"uL": 1
 		},
@@ -295,10 +151,10 @@
 "manualImportLinks": {
 	},
 "projectAttributes": {
-	"creationDate": 540084131,
-	"displayValue": "mbrain",
+	"creationDate": 541631752,
+	"displayValue": "quietcoin",
 	"displayValueWasSetByUser": 0,
-	"iconImageName": "meme-angryPicard"
+	"iconImageName": "meme-drunkArcher"
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
