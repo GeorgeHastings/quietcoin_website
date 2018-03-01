@@ -1,5 +1,5 @@
 pre .comment {
-  color: #95A4B3; }
+  color: #8192b9; }
 
 pre .constant {
   color: #e26c6a; }
@@ -11,7 +11,7 @@ pre .string, pre .comment.docstring {
   color: #10cfdc; }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
-  color: #95A4B3; }
+  color: #8192b9; }
 
 pre .support.css-property {
   color: var(--var-color); }
@@ -38,7 +38,7 @@ pre .entity {
   color: #67e0ae; }
 
 pre .support {
-  color: #95A4B3; }
+  color: #8192b9; }
 
 pre .variable.global, pre .variable.class, pre .variable.instance {
   color: #FF6400; }
@@ -50,4 +50,4 @@ pre .function.call {
   color: var(--text-color); }
 
 [data-language="c"] .function.call, .lang-c .function.call, .language-c .function.call {
-  color: #95A4B3; }
+  color: #8192b9; }
