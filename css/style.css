@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url("https://fonts.googleapis.com/css?family=Stoke");
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -39,7 +40,7 @@ table {
   box-sizing: border-box; }
 
 :root {
-  --display-font: 'Domaine Display Narrow TEST';
+  --display-font: 'Stoke';
   --bg-color: #000;
   --main-color: #3AF0BB;
   --main-color-darker: #259476;
@@ -139,7 +140,8 @@ section {
   display: inline-block;
   padding: 1rem 2rem; }
   .btn--main {
-    background-color: var(--main-color-darker); }
+    background-color: var(--main-color-darker);
+    font-weight: bold; }
   .btn--secondary {
     display: block;
     color: var(--main-color); }

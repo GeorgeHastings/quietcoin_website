@@ -1,9 +1,10 @@
 @import 'reset';
+@import url('https://fonts.googleapis.com/css?family=Stoke');
 
 * {box-sizing: border-box;}
 
 :root {
-  --display-font: 'Domaine Display Narrow TEST';
+  --display-font: 'Stoke';
   --bg-color: #000;
   --main-color: #3AF0BB;
   --main-color-darker: #259476;
@@ -139,6 +140,7 @@ section {
 
   &--main {
     background-color: var(--main-color-darker);
+    font-weight: bold;
   }
 
   &--secondary {
