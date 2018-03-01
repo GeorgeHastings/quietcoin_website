@@ -15,11 +15,11 @@ pre .constant {
 }
 
 pre .storage {
-  color: violet;
+  color: #e244a0;
 }
 
 pre .string, pre .comment.docstring {
-  color: Turquoise ;
+  color: #10cfdc;
 }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
@@ -31,7 +31,7 @@ pre .support.css-property {
 }
 
 pre .keyword.operator {
-  color: var(--var-color);
+  color: var(--subtle-text-color);
 }
 
 pre .keyword.unit {
@@ -67,7 +67,7 @@ pre .variable.global, pre .variable.class, pre .variable.instance {
 }
 
 pre .function.call {
-  color: #08907e;
+  color: #9375ff;
 }
 
 [data-language="unknown"] {

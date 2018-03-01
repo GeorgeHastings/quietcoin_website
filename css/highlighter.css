@@ -5,10 +5,10 @@ pre .constant {
   color: #e26c6a; }
 
 pre .storage {
-  color: violet; }
+  color: #e244a0; }
 
 pre .string, pre .comment.docstring {
-  color: Turquoise; }
+  color: #10cfdc; }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style, .support.tag, .support.css-value {
   color: #95A4B3; }
@@ -17,7 +17,7 @@ pre .support.css-property {
   color: var(--var-color); }
 
 pre .keyword.operator {
-  color: var(--var-color); }
+  color: var(--subtle-text-color); }
 
 pre .keyword.unit {
   color: #e26c6a; }
@@ -44,7 +44,7 @@ pre .variable.global, pre .variable.class, pre .variable.instance {
   color: #FF6400; }
 
 pre .function.call {
-  color: #08907e; }
+  color: #9375ff; }
 
 [data-language="unknown"] {
   color: var(--text-color); }

@@ -598,7 +598,8 @@ body {
       padding: 1rem;
       font-family: "Roboto Mono";
       letter-spacing: -0.2px;
-      background-color: var(--select-color);
+      background-color: var(--hover-color);
+      border: 1px solid var(--select-color);
       overflow-x: scroll;
       color: var(--subtle-text-color); }
   .message.sparkline {
@@ -666,6 +667,9 @@ body {
       display: inline-block; }
   .message.message-selected {
     background-color: var(--select-color); }
+
+.m-c img {
+  width: 100%; }
 
 .message:focus,
 .list:focus,

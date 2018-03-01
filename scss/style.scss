@@ -242,7 +242,8 @@ body {
       padding: 1rem;
       font-family: $mono;
       letter-spacing: -0.2px;
-      background-color: var(--select-color);
+      background-color: var(--hover-color);
+      border: 1px solid var(--select-color);
       overflow-x: scroll;
       color: var(--subtle-text-color);
     }
@@ -362,6 +363,12 @@ body {
 
   &.message-selected {
     background-color: var(--select-color);
+  }
+}
+
+.m-c {
+  img {
+    width: 100%;
   }
 }
 
