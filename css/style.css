@@ -157,6 +157,10 @@ section {
   position: absolute;
   top: 2rem;
   left: 2rem; }
+  @media (max-width: 580px) {
+    .topleft {
+      top: 0.5rem;
+      left: 0.5rem; } }
 
 a {
   display: inline-block;

@@ -204,6 +204,11 @@ section {
   position: absolute;
   top: 2rem;
   left: 2rem;
+
+  @media (max-width: 580px) {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
 }
 
 a {

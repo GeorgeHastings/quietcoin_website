@@ -37,6 +37,17 @@
 		"oAP": "\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.woff2",
 		"oF": 0
 		},
+	"\/assets\/images\/fav.png": {
+		"ft": 32768,
+		"iS": 818,
+		"oA": 0,
+		"oAP": "\/assets\/images\/fav.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/assets\/images\/ferns.jpg": {
 		"ft": 16384,
 		"iS": 321454,
