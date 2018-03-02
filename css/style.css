@@ -105,10 +105,10 @@ section {
       padding: 5rem calc((100% - 1024px) / 2); } }
 
 .top-logo {
-  margin-top: -30vw;
+  margin-top: -3.5vw;
   padding-bottom: 0px; }
   .top-logo img {
-    max-width: 700px;
+    max-width: 600px;
     width: 80vw;
     margin-right: -6.5%; }
 
