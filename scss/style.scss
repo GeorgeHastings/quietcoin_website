@@ -200,7 +200,14 @@ section {
   }
 }
 
+.topleft {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
 a {
+  display: inline-block;
   text-decoration: none;
   color: inherit;
 }

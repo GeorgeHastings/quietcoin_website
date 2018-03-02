@@ -153,7 +153,13 @@ section {
     margin-top: 1rem;
     color: var(--main-color); }
 
+.topleft {
+  position: absolute;
+  top: 2rem;
+  left: 2rem; }
+
 a {
+  display: inline-block;
   text-decoration: none;
   color: inherit; }
 
