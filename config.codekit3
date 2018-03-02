@@ -16,6 +16,27 @@
 		"oAP": "\/.jshintrc",
 		"oF": 0
 		},
+	"\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.eot": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.eot",
+		"oF": 0
+		},
+	"\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.woff": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.woff",
+		"oF": 0
+		},
+	"\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.woff2": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/assets\/fonts\/Domaine\/DomaineDisplayNarrowWeb-Medium.woff2",
+		"oF": 0
+		},
 	"\/assets\/images\/ferns.jpg": {
 		"ft": 16384,
 		"iS": 321454,
@@ -89,6 +110,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/partners.html",
+		"oF": 0
+		},
+	"\/README.html": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/README.html",
 		"oF": 0
 		},
 	"\/README.md": {

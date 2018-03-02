@@ -1,10 +1,58 @@
 @import 'reset';
 @import url('https://fonts.googleapis.com/css?family=Stoke');
 
+
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+@include font-face("Domaine", '../assets/fonts/Domaine/DomaineDisplayNarrowWeb-Medium');
+
 * {box-sizing: border-box;}
 
 :root {
-  --display-font: 'Stoke';
+  --display-font: 'Domaine';
   --bg-color: #000;
   --main-color: #3AF0BB;
   --main-color-darker: #259476;
@@ -40,6 +88,7 @@ h1 {
   margin-bottom: 3.18rem;
   font-size: 3.18rem;
   line-height: 140%;
+  font-weight: 500;
   font-family: var(--display-font);
 
   @media (max-width: 580px) {
@@ -50,6 +99,7 @@ h1 {
 h2 {
   font-size: 2.5rem;
   line-height: 140%;
+  font-weight: 500;
   font-family: var(--display-font);
 
   @media (max-width: 580px) {
@@ -145,6 +195,7 @@ section {
 
   &--secondary {
     display: block;
+    margin-top: 1rem;
     color: var(--main-color);
   }
 }
