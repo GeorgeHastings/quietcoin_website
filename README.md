@@ -1,2 +1,1 @@
-# tanto
 # quietcoin_website
