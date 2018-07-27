@@ -175,13 +175,17 @@ section {
     width: calc(100% - 3rem);
     max-width: 350px;
     margin: 50px auto 0;
+
+		@media (max-width: 580px) {
+	    margin: 50px auto;
+	  }
   }
 
   .icon {
     display: inline-block;
     padding: 1rem;
     max-height: 50px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     border: 1px solid var(--main-color);
   }
 
