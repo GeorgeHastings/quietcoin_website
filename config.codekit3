@@ -7,7 +7,7 @@
 		"uuidString": "7F9592B3-6B67-43ED-A415-1CAA48051D42"
 		}
 	],
-"creatorBuild": "26268",
+"creatorBuild": "26680",
 "files": {
 	"\/.jshintrc": {
 		"cB": 0,
@@ -43,19 +43,31 @@
 		"oA": 0,
 		"oAP": "\/assets\/images\/fav.png",
 		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/images\/ferns.jpg": {
 		"ft": 16384,
 		"iS": 321454,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/assets\/images\/ferns.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 1,
+		"q": 100
+		},
+	"\/assets\/images\/ferns_2.png": {
+		"ft": 32768,
+		"iS": 222530,
+		"oA": 0,
+		"oAP": "\/assets\/images\/ferns_2.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/assets\/images\/heart_icon.svg": {
@@ -79,11 +91,32 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/assets\/images\/logo_2.png": {
+		"ft": 32768,
+		"iS": 244629,
+		"oA": 0,
+		"oAP": "\/assets\/images\/logo_2.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/assets\/images\/offline_icon.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
 		"oAP": "\/assets\/images\/offline_icon.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/assets\/images\/piggy-bank.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/assets\/images\/piggy-bank.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
@@ -200,7 +233,8 @@
 	"creationDate": 541631752,
 	"displayValue": "quietcoin",
 	"displayValueWasSetByUser": 0,
-	"iconImageName": "meme-drunkArcher"
+	"iconImageName": "meme-drunkArcher",
+	"iconImageWasSetByUser": 0
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -2003,6 +2037,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {
