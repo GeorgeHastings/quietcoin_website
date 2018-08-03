@@ -191,5 +191,8 @@ a {
   margin-bottom: 3rem; }
 
 footer {
+  display: flex;
+  width: 100%;
   padding: 3rem 0;
-  font-size: 0.8rem; }
+  font-size: 0.8rem;
+  justify-content: space-around; }

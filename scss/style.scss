@@ -249,6 +249,13 @@ a {
 }
 
 footer {
+	display: flex;
+	width: 100%;
   padding: 3rem 0;
 	font-size: 0.8rem;
+	justify-content: space-around;
+
+	p + p {
+		// margin-left: 30px;
+	}
 }

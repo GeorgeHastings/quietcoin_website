@@ -70,6 +70,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/assets\/images\/ferns_3.png": {
+		"ft": 32768,
+		"iS": 73665,
+		"oA": 0,
+		"oAP": "\/assets\/images\/ferns_3.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/assets\/images\/heart_icon.svg": {
 		"ft": 2097152,
 		"miP": 0,
@@ -161,6 +172,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/partners.html",
+		"oF": 0
+		},
+	"\/Privacy_Policy.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/Privacy_Policy.pdf",
 		"oF": 0
 		},
 	"\/README.html": {
